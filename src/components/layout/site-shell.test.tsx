@@ -28,21 +28,24 @@ describe("site shell", () => {
     ]);
   });
 
-  it("exposes every approved route in each navigation region", () => {
+  it("renders the approved navigation markup in every region", () => {
     const headerMarkup = renderToStaticMarkup(<SiteHeader />);
     const mobileMarkup = renderToStaticMarkup(<MobileNavigation />);
     const footerMarkup = renderToStaticMarkup(<SiteFooter />);
-    const navigationRegions = [
-      getNavigationMarkup(headerMarkup, "Primary"),
-      getNavigationMarkup(mobileMarkup, "Mobile"),
-      getNavigationMarkup(footerMarkup, "Footer"),
-    ];
+    const actionContactMarkup =
+      '<a class="action-link action-link--secondary" href="/contact">Contact</a>';
 
-    for (const route of ["/", "/machines", "/expertise", "/contact"]) {
-      for (const navigation of navigationRegions) {
-        expect(navigation).toContain(`href="${route}"`);
-      }
-    }
+    expect(getNavigationMarkup(headerMarkup, "Primary")).toBe(
+      '<a href="/">Home</a><a href="/machines">Machines</a><a href="/expertise">Expertise</a>' +
+        actionContactMarkup,
+    );
+    expect(getNavigationMarkup(mobileMarkup, "Mobile")).toBe(
+      '<a href="/">Home</a><a href="/machines">Machines</a><a href="/expertise">Expertise</a>' +
+        actionContactMarkup,
+    );
+    expect(getNavigationMarkup(footerMarkup, "Footer")).toBe(
+      '<a href="/">Home</a><a href="/machines">Machines</a><a href="/expertise">Expertise</a><a href="/contact">Contact</a>',
+    );
 
     expect(headerMarkup).toContain('aria-label="Primary"');
     expect(headerMarkup).toContain('aria-label="Mobile"');
