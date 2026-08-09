@@ -40,6 +40,9 @@ describe("machine content components", () => {
     );
 
     expect(markup).toContain("/machines/development-machine");
+    expect(markup).toContain(
+      '<h2><a href="/machines/development-machine">Development Machine</a></h2>',
+    );
     expect(markup).toContain(DEVELOPMENT_PLACEHOLDER_LABEL);
     expect(markup).toContain(machine.heroImage.alt);
     expect(markup).not.toContain(".glb");

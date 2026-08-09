@@ -41,7 +41,11 @@ export function FeaturedMachinesSection({
         {publishedMachines.length > 0 ? (
           <div className="machine-grid home-machine-grid">
             {publishedMachines.map((machine) => (
-              <MachineCard key={machine.slug} machine={machine} />
+              <MachineCard
+                headingLevel="h3"
+                key={machine.slug}
+                machine={machine}
+              />
             ))}
           </div>
         ) : (

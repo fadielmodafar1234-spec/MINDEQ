@@ -17,10 +17,13 @@ type MachineCardMachine = Pick<
 >;
 
 type MachineCardProps = Readonly<{
+  headingLevel?: "h2" | "h3";
   machine: MachineCardMachine;
 }>;
 
-export function MachineCard({ machine }: MachineCardProps) {
+export function MachineCard({ headingLevel, machine }: MachineCardProps) {
+  const Heading = headingLevel === "h3" ? "h3" : "h2";
+
   return (
     <article className="machine-card">
       <Link
@@ -38,9 +41,9 @@ export function MachineCard({ machine }: MachineCardProps) {
       </Link>
       <div className="machine-card__content">
         <p className="eyebrow">{machine.category.label}</p>
-        <h2>
+        <Heading>
           <Link href={`/machines/${machine.slug}`}>{machine.shortName}</Link>
-        </h2>
+        </Heading>
         {machine.tagline ? <p>{machine.tagline}</p> : null}
         {machine.publicationStatus === "development" ? (
           <DevelopmentPlaceholderNotice />

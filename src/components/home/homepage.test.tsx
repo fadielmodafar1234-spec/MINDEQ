@@ -5,6 +5,21 @@ import { developmentMachine } from "@/content/machines/development-machine";
 
 import { Homepage } from "./homepage";
 
+const publishedMachine = {
+  slug: "published-test-machine",
+  name: "Published test machine",
+  shortName: "Published test machine",
+  category: developmentMachine.category,
+  tagline: "Published test tagline",
+  heroImage: {
+    ...developmentMachine.heroImage,
+    id: "published-test-machine-hero",
+    alt: "Published test machine poster.",
+    publicationStatus: "published" as const,
+  },
+  publicationStatus: "published" as const,
+};
+
 describe("homepage", () => {
   it("renders the seven approved chapters in order", () => {
     const markup = renderToStaticMarkup(<Homepage featuredMachines={[]} />);
@@ -23,6 +38,10 @@ describe("homepage", () => {
       expect(next).toBeGreaterThan(position);
       return next;
     }, -1);
+
+    for (const index of ["01", "02", "03", "04", "05", "06", "07"]) {
+      expect(markup).toContain(`data-section-index="${index}"`);
+    }
 
     expect(markup).toContain("DESIGNED.");
     expect(markup).toContain("ENGINEERED.");
@@ -61,5 +80,27 @@ describe("homepage", () => {
       "No verified featured machines are published yet.",
     );
     expect(markup).not.toContain("development-machine");
+  });
+
+  it("renders a supplied published machine with section-level heading hierarchy", () => {
+    const markup = renderToStaticMarkup(
+      <Homepage featuredMachines={[publishedMachine]} />,
+    );
+
+    expect(markup).toContain('href="/machines/published-test-machine"');
+    expect(markup).toContain(
+      '<h3><a href="/machines/published-test-machine">Published test machine</a></h3>',
+    );
+    expect(markup).not.toContain(
+      "No verified featured machines are published yet.",
+    );
+  });
+
+  it("hides the decorative machine stage from assistive technology", () => {
+    const markup = renderToStaticMarkup(<Homepage featuredMachines={[]} />);
+
+    expect(markup).toContain(
+      '<div aria-hidden="true" class="machine-stage">',
+    );
   });
 });
