@@ -62,7 +62,7 @@ Responsive sizes use `clamp()` and preserve intentional line breaks at the five 
 
 ### Spacing and grid
 
-The spacing scale is based on `0.25rem` and exposes named steps from `--space-1` through `--space-12`. Page sections use a separate responsive `--section-space` token so chapter rhythm is not confused with component spacing.
+The spacing scale exposes ten approved steps from `--space-1` through `--space-10`: `0.25rem`, `0.5rem`, `0.75rem`, `1rem`, `1.5rem`, `2rem`, `3rem`, `4rem`, `6rem`, and `8rem`. Page sections use a separate responsive `--section-space` token so chapter rhythm is not confused with component spacing.
 
 The global container uses a 12-column desktop grid and a 4-column mobile grid. Standard, wide, and text-measure containers are the only width primitives. Full-bleed regions remain available for later approved media but are not used gratuitously.
 

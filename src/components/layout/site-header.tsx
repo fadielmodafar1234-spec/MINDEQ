@@ -3,11 +3,8 @@ import Link from "next/link";
 import { ActionLink } from "@/components/ui/action-link";
 import { Container } from "@/components/ui/container";
 
-const primaryRoutes = [
-  { href: "/", label: "Home" },
-  { href: "/machines", label: "Machines" },
-  { href: "/expertise", label: "Expertise" },
-] as const;
+import { MobileNavigation } from "./mobile-navigation";
+import { primaryRoutes } from "./navigation-routes";
 
 export function SiteHeader() {
   return (
@@ -26,19 +23,7 @@ export function SiteHeader() {
             Contact
           </ActionLink>
         </nav>
-        <details className="site-mobile-nav">
-          <summary>Menu</summary>
-          <nav aria-label="Mobile">
-            {primaryRoutes.map(({ href, label }) => (
-              <Link href={href} key={href}>
-                {label}
-              </Link>
-            ))}
-            <ActionLink href="/contact" variant="secondary">
-              Contact
-            </ActionLink>
-          </nav>
-        </details>
+        <MobileNavigation />
       </div>
     </Container>
   );

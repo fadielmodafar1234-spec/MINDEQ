@@ -25,18 +25,29 @@ describe("static design foundation", () => {
 
   it("defines the semantic token and resilience contract", () => {
     const css = readFileSync("src/app/globals.css", "utf8");
-    for (const token of [
-      "--color-canvas",
-      "--color-ink",
-      "--color-brand",
-      "--color-focus",
-      "--section-space",
-      "--grid-columns",
+    for (const declaration of [
+      "--color-canvas: #e7e5de;",
+      "--color-ink: #111713;",
+      "--color-brand: #174a5b;",
+      "--color-focus: #0b6f8a;",
+      "--section-space: clamp(var(--space-8), 8vw, var(--space-10));",
+      "--grid-columns: 12;",
     ]) {
-      expect(css).toContain(token);
+      expect(css).toContain(declaration);
     }
-    expect(css).toContain(":focus-visible");
-    expect(css).toContain("prefers-reduced-motion: reduce");
-    expect(css).toContain("overflow-x: clip");
+    expect(css).toMatch(
+      /:focus-visible\s*\{\s*outline: 3px solid var\(--color-focus\);\s*outline-offset: 3px;/,
+    );
+    expect(css).toMatch(
+      /@media \(max-width: 48rem\) \{[\s\S]*?:root \{[\s\S]*?--grid-columns: 4;/,
+    );
+    expect(css).toMatch(
+      /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?animation: none !important;[\s\S]*?transition: none !important;/,
+    );
+    expect(css).toMatch(
+      /@media \(hover: hover\) \{[\s\S]*?\.action-link:hover[\s\S]*?text-decoration-line: underline;/,
+    );
+    expect(css).toMatch(/html\s*\{[\s\S]*?overflow-x: clip;/);
+    expect(css).not.toMatch(/\.machine-card\s*\{[^}]*overflow: hidden;/);
   });
 });

@@ -378,7 +378,6 @@ p:last-child {
 }
 
 .machine-card {
-  overflow: hidden;
   border: 1px solid var(--color-line);
   background: var(--color-surface);
 }
@@ -710,7 +709,22 @@ p:last-child {
   margin-block-start: var(--space-5);
 }
 
+@media (hover: hover) {
+  .site-header__brand:hover,
+  .site-nav a:not(.action-link):hover,
+  .site-footer__nav a:hover,
+  .action-link:hover {
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+  }
+}
+
 @media (max-width: 48rem) {
+  html.mobile-menu-open,
+  html.mobile-menu-open body {
+    overflow: hidden;
+  }
+
   :root {
     --grid-columns: 4;
     --grid-gap: var(--space-4);
