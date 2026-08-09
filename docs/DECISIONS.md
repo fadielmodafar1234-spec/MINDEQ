@@ -155,3 +155,14 @@ Deferred dependency decisions protect bundle size, lifecycle clarity, maintainab
 
 STATUS:
 LOCKED
+
+---
+
+DECISION:
+Approve Task 05 Static Visual Art Direction hierarchy: massive industrial display headlines (`MINDEQ`), high-contrast dark hero background `#0d1210`, vector CAD stage with technical crosshairs and datum annotations, numbered industrial index items (`01 /`, `02 /`), and staggered uppercase engineering typography (`DESIGNED. ENGINEERED. MANUFACTURED. IN MOROCCO.`).
+
+WHY:
+Establishes a campaign-quality static presentation that communicates technical authority, heavy industrial manufacturing, and Moroccan engineering precision across desktop and mobile viewports without relying on WebGL or JavaScript animation.
+
+STATUS:
+LOCKED

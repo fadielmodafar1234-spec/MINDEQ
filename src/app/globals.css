@@ -1,34 +1,45 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
   --color-canvas: #e7e5de;
   --color-surface: #f4f3ee;
   --color-ink: #111713;
-  --color-muted: #56605a;
-  --color-line: #a9aea7;
+  --color-muted: #525a55;
+  --color-line: #a4a9a3;
   --color-brand: #174a5b;
-  --color-action: #8a451f;
+  --color-brand-light: #19586c;
+  --color-action: #b0481d;
+  --color-action-hover: #c95524;
   --color-focus: #0b6f8a;
-  --color-success: #236746;
-  --color-warning: #8a5b11;
-  --color-error: #a52d24;
+  --color-success: #1f6644;
+  --color-warning: #8a570f;
+  --color-error: #a82a20;
+
+  --color-dark-bg: #0d1210;
+  --color-dark-surface: #141a17;
+  --color-dark-line: #26302a;
+  --color-dark-muted: #88948d;
 
   --font-display: "Arial Narrow", "Aptos Narrow", "Roboto Condensed",
     "Helvetica Neue", Arial, sans-serif;
   --font-body: Arial, Helvetica, system-ui, -apple-system, BlinkMacSystemFont,
     sans-serif;
-  --font-label: var(--font-body);
-  --type-display: clamp(3rem, 8vw, 7.5rem);
-  --type-heading-1: clamp(2.5rem, 6vw, 5.75rem);
-  --type-heading-2: clamp(2rem, 4vw, 3.75rem);
-  --type-heading-3: clamp(1.25rem, 2vw, 1.75rem);
-  --type-body: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
+  --font-label: var(--font-display);
+
+  --type-display: clamp(3.5rem, 10vw, 9.5rem);
+  --type-heading-1: clamp(2.75rem, 6vw, 6rem);
+  --type-heading-2: clamp(2rem, 4.5vw, 4rem);
+  --type-heading-3: clamp(1.25rem, 2.2vw, 1.85rem);
+  --type-body: clamp(1rem, 0.96rem + 0.22vw, 1.15rem);
   --type-label: 0.75rem;
-  --leading-display: 0.9;
-  --leading-heading: 1;
+
+  --leading-display: 0.88;
+  --leading-heading: 0.95;
   --leading-body: 1.65;
-  --tracking-label: 0.12em;
+  --tracking-display: -0.055em;
+  --tracking-heading: -0.035em;
+  --tracking-label: 0.14em;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -43,12 +54,12 @@
   --section-space: clamp(var(--space-8), 8vw, var(--space-10));
 
   --grid-columns: 12;
-  --grid-gap: clamp(var(--space-4), 2vw, var(--space-6));
-  --page-gutter: clamp(var(--space-4), 4vw, var(--space-8));
-  --container-standard: 75rem;
-  --container-wide: 90rem;
+  --grid-gap: clamp(var(--space-4), 2.5vw, var(--space-6));
+  --page-gutter: clamp(var(--space-4), 4.5vw, var(--space-8));
+  --container-standard: 76rem;
+  --container-wide: 92rem;
   --container-text: 48rem;
-  --control-size: 2.75rem;
+  --control-size: 2.875rem;
 
   background: var(--color-canvas);
   color: var(--color-ink);
@@ -519,10 +530,32 @@ p:last-child {
   grid-column: 7 / -1;
   align-self: stretch;
   min-height: 28rem;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border-inline-start: 1px solid
-    color-mix(in srgb, currentColor 35%, transparent);
+    color-mix(in srgb, currentColor 25%, transparent);
+  padding: var(--space-4);
+}
+
+.machine-stage__meta {
+  width: 100%;
+  max-width: 45rem;
+  margin-block-end: var(--space-3);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  color: var(--color-dark-muted);
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  letter-spacing: var(--tracking-label);
+}
+
+.machine-stage__tag {
+  border: 1px solid var(--color-dark-line);
+  padding: 0.15rem 0.5rem;
+  background: color-mix(in srgb, var(--color-dark-surface) 60%, transparent);
 }
 
 .machine-stage__drawing {
@@ -534,29 +567,59 @@ p:last-child {
 .machine-stage__detail,
 .machine-stage__datum-line,
 .machine-stage__axis,
-.machine-stage__panel {
+.machine-stage__axis-inner,
+.machine-stage__panel,
+.machine-stage__grid,
+.machine-stage__crosshairs path {
   fill: none;
   vector-effect: non-scaling-stroke;
 }
 
+.machine-stage__grid {
+  stroke: color-mix(in srgb, var(--color-canvas) 8%, transparent);
+  stroke-width: 1;
+}
+
 .machine-stage__outline {
   stroke: var(--color-canvas);
-  stroke-width: 3;
+  stroke-width: 2.5;
 }
 
 .machine-stage__detail,
 .machine-stage__axis {
   stroke: var(--color-action);
-  stroke-width: 2;
+  stroke-width: 1.75;
+}
+
+.machine-stage__axis-inner {
+  stroke: var(--color-canvas);
+  stroke-width: 1.5;
+}
+
+.machine-stage__crosshairs path {
+  stroke: var(--color-action);
+  stroke-width: 1.5;
 }
 
 .machine-stage__panel {
-  fill: color-mix(in srgb, var(--color-brand) 42%, transparent);
+  fill: color-mix(in srgb, var(--color-brand) 45%, transparent);
   stroke: var(--color-canvas);
-  stroke-width: 2;
+  stroke-width: 1.5;
 }
 
 .machine-stage__datum-line {
+  stroke: color-mix(in srgb, var(--color-canvas) 22%, transparent);
+  stroke-dasharray: 4 8;
+  stroke-width: 1;
+}
+
+.machine-stage__dim-text {
+  fill: var(--color-dark-muted);
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+}
   stroke: color-mix(in srgb, var(--color-canvas) 20%, transparent);
   stroke-dasharray: 5 10;
   stroke-width: 1;
@@ -621,10 +684,22 @@ p:last-child {
 .industry-index li {
   border-block-start: 1px solid var(--color-line);
   padding-block: var(--space-4);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.6vw, 2.5rem);
   font-weight: 700;
   line-height: var(--leading-heading);
+}
+
+.industry-index__num,
+.company-facts__num {
+  color: var(--color-action);
+  font-family: var(--font-label);
+  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
 }
 
 .industry-index li:last-child {
@@ -662,6 +737,26 @@ p:last-child {
 .custom-engineering-chapter__body,
 .company-facts {
   grid-column: 7 / -1;
+}
+
+.company-facts {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  list-style: none;
+}
+
+.company-facts li {
+  border-block-start: 1px solid var(--color-line);
+  padding-block: var(--space-4);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  font-family: var(--font-label);
+  font-size: var(--type-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }
 
 .custom-engineering-chapter__body > p {
