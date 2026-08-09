@@ -5,7 +5,10 @@ import Link from "next/link";
 
 import { ActionLink } from "@/components/ui/action-link";
 
-import { primaryRoutes } from "./navigation-routes";
+import {
+  contactNavigationRoute,
+  primaryNavigationRoutes,
+} from "./navigation-routes";
 
 const scrollContainmentClass = "mobile-menu-open";
 
@@ -61,13 +64,13 @@ export function MobileNavigation() {
     <details className="site-mobile-nav" ref={detailsRef}>
       <summary>Menu</summary>
       <nav aria-label="Mobile">
-        {primaryRoutes.map(({ href, label }) => (
+        {primaryNavigationRoutes.map(({ href, label }) => (
           <Link href={href} key={href}>
             {label}
           </Link>
         ))}
-        <ActionLink href="/contact" variant="secondary">
-          Contact
+        <ActionLink href={contactNavigationRoute.href} variant="secondary">
+          {contactNavigationRoute.label}
         </ActionLink>
       </nav>
     </details>

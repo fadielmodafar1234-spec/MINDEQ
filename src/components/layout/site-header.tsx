@@ -4,7 +4,10 @@ import { ActionLink } from "@/components/ui/action-link";
 import { Container } from "@/components/ui/container";
 
 import { MobileNavigation } from "./mobile-navigation";
-import { primaryRoutes } from "./navigation-routes";
+import {
+  contactNavigationRoute,
+  primaryNavigationRoutes,
+} from "./navigation-routes";
 
 export function SiteHeader() {
   return (
@@ -14,13 +17,13 @@ export function SiteHeader() {
           MINDEQ
         </Link>
         <nav aria-label="Primary" className="site-nav">
-          {primaryRoutes.map(({ href, label }) => (
+          {primaryNavigationRoutes.map(({ href, label }) => (
             <Link href={href} key={href}>
               {label}
             </Link>
           ))}
-          <ActionLink href="/contact" variant="secondary">
-            Contact
+          <ActionLink href={contactNavigationRoute.href} variant="secondary">
+            {contactNavigationRoute.label}
           </ActionLink>
         </nav>
         <MobileNavigation />

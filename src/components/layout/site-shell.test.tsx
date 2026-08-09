@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
+import { siteNavigationRoutes } from "./navigation-routes";
 import {
   attachMobileNavigationBehavior,
   MobileNavigation,
@@ -18,6 +19,15 @@ function getNavigationMarkup(markup: string, label: string) {
 }
 
 describe("site shell", () => {
+  it("exposes the canonical site navigation routes", () => {
+    expect(siteNavigationRoutes).toEqual([
+      { href: "/", label: "Home" },
+      { href: "/machines", label: "Machines" },
+      { href: "/expertise", label: "Expertise" },
+      { href: "/contact", label: "Contact" },
+    ]);
+  });
+
   it("exposes every approved route in each navigation region", () => {
     const headerMarkup = renderToStaticMarkup(<SiteHeader />);
     const mobileMarkup = renderToStaticMarkup(<MobileNavigation />);
