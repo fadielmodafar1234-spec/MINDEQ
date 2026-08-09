@@ -4,16 +4,34 @@ import { describe, expect, it } from "vitest";
 
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
-import { attachMobileNavigationBehavior } from "./mobile-navigation";
+import {
+  attachMobileNavigationBehavior,
+  MobileNavigation,
+} from "./mobile-navigation";
+
+function getNavigationMarkup(markup: string, label: string) {
+  return (
+    markup.match(
+      new RegExp(`<nav aria-label="${label}"[^>]*>([\\s\\S]*?)</nav>`),
+    )?.[1] ?? ""
+  );
+}
 
 describe("site shell", () => {
   it("exposes every approved route in each navigation region", () => {
     const headerMarkup = renderToStaticMarkup(<SiteHeader />);
+    const mobileMarkup = renderToStaticMarkup(<MobileNavigation />);
     const footerMarkup = renderToStaticMarkup(<SiteFooter />);
+    const navigationRegions = [
+      getNavigationMarkup(headerMarkup, "Primary"),
+      getNavigationMarkup(mobileMarkup, "Mobile"),
+      getNavigationMarkup(footerMarkup, "Footer"),
+    ];
 
     for (const route of ["/", "/machines", "/expertise", "/contact"]) {
-      expect(headerMarkup).toContain(`href="${route}"`);
-      expect(footerMarkup).toContain(`href="${route}"`);
+      for (const navigation of navigationRegions) {
+        expect(navigation).toContain(`href="${route}"`);
+      }
     }
 
     expect(headerMarkup).toContain('aria-label="Primary"');
@@ -24,10 +42,11 @@ describe("site shell", () => {
     expect(footerMarkup).toContain("Moroccan industrial machine manufacturer");
   });
 
-  it("closes the mobile menu on Escape, restores focus, and releases scroll", () => {
+  it("closes the mobile menu after link activation or Escape", () => {
     const details = new EventTarget() as EventTarget & {
       open: boolean;
       querySelector: () => { focus: () => void };
+      querySelectorAll: () => EventTarget[];
     };
     const documentTarget = new EventTarget() as EventTarget & {
       documentElement: {
@@ -38,6 +57,7 @@ describe("site shell", () => {
       };
     };
     const rootClasses = new Set<string>();
+    const menuLink = new EventTarget();
     let summaryFocused = false;
 
     details.open = true;
@@ -46,6 +66,7 @@ describe("site shell", () => {
         summaryFocused = true;
       },
     });
+    details.querySelectorAll = () => [menuLink];
     documentTarget.documentElement = {
       classList: {
         remove: (token) => {
@@ -65,6 +86,15 @@ describe("site shell", () => {
       documentTarget as unknown as Document,
     );
 
+    expect(rootClasses.has("mobile-menu-open")).toBe(true);
+
+    menuLink.dispatchEvent(new Event("click"));
+
+    expect(details.open).toBe(false);
+    expect(rootClasses.has("mobile-menu-open")).toBe(false);
+
+    details.open = true;
+    details.dispatchEvent(new Event("toggle"));
     expect(rootClasses.has("mobile-menu-open")).toBe(true);
 
     const escapeEvent = new Event("keydown", { cancelable: true });

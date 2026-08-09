@@ -15,8 +15,13 @@ export function attachMobileNavigationBehavior(
 ) {
   const root = menuDocument.documentElement;
   const summary = details.querySelector("summary");
+  const links = details.querySelectorAll("a");
   const syncScrollContainment = () => {
     root.classList.toggle(scrollContainmentClass, details.open);
+  };
+  const closeOnLinkActivation = () => {
+    details.open = false;
+    syncScrollContainment();
   };
   const closeOnEscape = (event: KeyboardEvent) => {
     if (event.key !== "Escape" || !details.open) return;
@@ -28,11 +33,15 @@ export function attachMobileNavigationBehavior(
   };
 
   details.addEventListener("toggle", syncScrollContainment);
+  links.forEach((link) => link.addEventListener("click", closeOnLinkActivation));
   menuDocument.addEventListener("keydown", closeOnEscape);
   syncScrollContainment();
 
   return () => {
     details.removeEventListener("toggle", syncScrollContainment);
+    links.forEach((link) =>
+      link.removeEventListener("click", closeOnLinkActivation),
+    );
     menuDocument.removeEventListener("keydown", closeOnEscape);
     root.classList.remove(scrollContainmentClass);
   };
