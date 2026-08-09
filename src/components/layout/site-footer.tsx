@@ -1,13 +1,12 @@
 import Link from "next/link";
-import type { Route } from "next";
 
 import { Container } from "@/components/ui/container";
 
-const footerRoutes: ReadonlyArray<Readonly<{ href: Route; label: string }>> = [
+const footerRoutes = [
   { href: "/", label: "Home" },
   { href: "/machines", label: "Machines" },
-  { href: "/expertise" as Route, label: "Expertise" },
-  { href: "/contact" as Route, label: "Contact" },
+  { href: "/expertise", label: "Expertise" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 export function SiteFooter() {

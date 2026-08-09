@@ -1,5 +1,4 @@
 import Link from "next/link";
-import type { Route } from "next";
 
 export default function NotFound() {
   return (
@@ -12,7 +11,7 @@ export default function NotFound() {
         {" · "}
         <Link href="/machines">Machines</Link>
         {" · "}
-        <Link href={"/contact" as Route}>Contact</Link>
+        <Link href="/contact">Contact</Link>
       </nav>
     </main>
   );

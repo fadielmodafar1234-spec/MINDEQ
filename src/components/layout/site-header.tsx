@@ -1,13 +1,12 @@
 import Link from "next/link";
-import type { Route } from "next";
 
 import { ActionLink } from "@/components/ui/action-link";
 import { Container } from "@/components/ui/container";
 
-const primaryRoutes: ReadonlyArray<Readonly<{ href: Route; label: string }>> = [
+const primaryRoutes = [
   { href: "/", label: "Home" },
   { href: "/machines", label: "Machines" },
-  { href: "/expertise" as Route, label: "Expertise" },
+  { href: "/expertise", label: "Expertise" },
 ] as const;
 
 export function SiteHeader() {
@@ -23,7 +22,7 @@ export function SiteHeader() {
               {label}
             </Link>
           ))}
-          <ActionLink href={"/contact" as Route} variant="secondary">
+          <ActionLink href="/contact" variant="secondary">
             Contact
           </ActionLink>
         </nav>
@@ -35,7 +34,7 @@ export function SiteHeader() {
                 {label}
               </Link>
             ))}
-            <ActionLink href={"/contact" as Route} variant="secondary">
+            <ActionLink href="/contact" variant="secondary">
               Contact
             </ActionLink>
           </nav>
