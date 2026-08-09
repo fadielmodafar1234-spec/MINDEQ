@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  font-family:
+    Arial, Helvetica, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f4f4f1;
+  color: #161714;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: #f4f4f1;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.skip-link {
+  position: fixed;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  z-index: 100;
+  translate: 0 -200%;
+  background: #161714;
+  color: #fff;
+  padding: 0.75rem 1rem;
+}
+
+.skip-link:focus {
+  translate: 0;
+}
+
+.site-header,
+.site-footer,
+.page-shell {
+  width: min(100% - 2rem, 72rem);
+  margin-inline: auto;
+}
+
+.site-header {
+  display: flex;
+  min-height: 4rem;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #c9cbc4;
+}
+
+.site-nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.page-shell {
+  padding-block: clamp(3rem, 8vw, 7rem);
+}
+
+.page-shell > * {
+  max-width: 48rem;
+}
+
+.site-footer {
+  border-top: 1px solid #c9cbc4;
+  padding-block: 2rem;
+}
+
+:focus-visible {
+  outline: 3px solid #1d5c42;
+  outline-offset: 3px;
+}
+
+.page-introduction,
+.machine-page__header,
+.machine-overview,
+.technical-content section {
+  max-width: 48rem;
+}
+
+.eyebrow {
+  margin-block-end: 0.5rem;
+  color: #465149;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.catalogue-shell > * {
+  max-width: none;
+}
+
+.machine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: 1.5rem;
+  margin-block-start: 2.5rem;
+}
+
+.machine-card {
+  overflow: hidden;
+  border: 1px solid #c9cbc4;
+  background: #fff;
+}
+
+.machine-card__image-link {
+  display: block;
+  background: #e7e8e3;
+}
+
+.machine-card__content {
+  padding: 1.25rem;
+}
+
+.development-notice {
+  margin-block: 1.5rem;
+  border-inline-start: 0.3rem solid #9b6514;
+  padding: 1rem;
+  background: #fff4d6;
+  color: #392807;
+}
+
+.development-notice p {
+  margin-block-end: 0;
+}
+
+.empty-state {
+  margin-block-start: 2.5rem;
+  border: 1px dashed #8b8f86;
+  padding: 1.5rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-block-end: 2rem;
+}
+
+.machine-tagline {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+}
+
+.machine-page__poster {
+  width: 100%;
+  margin-block: 2.5rem;
+  background: #e7e8e3;
+}
+
+.technical-content {
+  display: grid;
+  gap: 2rem;
+  margin-block-start: 3rem;
+}
+
+.technical-value {
+  display: grid;
+  grid-template-columns: minmax(8rem, 1fr) 2fr;
+  gap: 1rem;
+  border-bottom: 1px solid #d7d9d2;
+  padding-block: 0.75rem;
+}
+
+.technical-value dd {
+  margin: 0;
+}
+
+.machine-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: 1rem;
+}
+
+.machine-gallery figure {
+  margin: 0;
+}
