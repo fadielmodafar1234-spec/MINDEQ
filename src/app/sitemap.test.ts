@@ -19,6 +19,8 @@ describe("sitemap", () => {
     expect(sitemap()).toEqual([
       { url: "https://mindeq.example/" },
       { url: "https://mindeq.example/machines" },
+      { url: "https://mindeq.example/expertise" },
+      { url: "https://mindeq.example/contact" },
     ]);
     expect(JSON.stringify(sitemap())).not.toContain("development-machine");
   });

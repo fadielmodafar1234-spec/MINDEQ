@@ -1,5 +1,3 @@
-import type { Route } from "next";
-
 import { ActionLink } from "@/components/ui/action-link";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -13,7 +11,7 @@ export function ContactCtaSection() {
         <p>
           Contact MINDEQ about a machine or a custom-engineering requirement.
         </p>
-        <ActionLink href={"/contact" as Route} variant="primary">
+        <ActionLink href="/contact" variant="primary">
           Contact MINDEQ
         </ActionLink>
       </Container>

@@ -1,5 +1,3 @@
-import type { Route } from "next";
-
 import { ActionLink } from "@/components/ui/action-link";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -23,10 +21,10 @@ export function CustomEngineeringSection() {
             requirements.
           </p>
           <div className="home-actions">
-            <ActionLink href={"/expertise" as Route} variant="primary">
+            <ActionLink href="/expertise" variant="primary">
               Explore expertise
             </ActionLink>
-            <ActionLink href={"/contact" as Route} variant="text">
+            <ActionLink href="/contact" variant="text">
               Discuss a requirement
             </ActionLink>
           </div>

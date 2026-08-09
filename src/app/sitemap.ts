@@ -19,6 +19,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "/",
     "/machines",
+    "/expertise",
+    "/contact",
     ...getPublishedMachineSlugs().map((slug) => `/machines/${slug}`),
   ];
 

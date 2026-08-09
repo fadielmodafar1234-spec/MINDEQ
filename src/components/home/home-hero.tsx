@@ -1,5 +1,3 @@
-import type { Route } from "next";
-
 import { ActionLink } from "@/components/ui/action-link";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -23,7 +21,7 @@ export function HomeHero() {
             <ActionLink href="/machines" variant="primary">
               Explore machines
             </ActionLink>
-            <ActionLink href={"/contact" as Route} variant="secondary">
+            <ActionLink href="/contact" variant="secondary">
               Discuss a requirement
             </ActionLink>
           </div>
