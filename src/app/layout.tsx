@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import type { ReactNode } from "react";
+
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
 
 import "./globals.css";
 
@@ -23,16 +25,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <a className="skip-link" href="#main-content">
           Skip to main content
         </a>
-        <header className="site-header">
-          <Link href="/">MINDEQ</Link>
-          <nav aria-label="Primary" className="site-nav">
-            <Link href="/machines">Machines</Link>
-          </nav>
-        </header>
+        <SiteHeader />
         {children}
-        <footer className="site-footer">
-          <p>MINDEQ — industrial machine manufacturing.</p>
-        </footer>
+        <SiteFooter />
       </body>
     </html>
   );

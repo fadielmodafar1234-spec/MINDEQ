@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Route } from "next";
 
 export default function NotFound() {
   return (
@@ -7,9 +8,11 @@ export default function NotFound() {
       <h1>Page not found</h1>
       <p>The requested MINDEQ page is not available.</p>
       <nav aria-label="Recovery">
-        <Link href="/">Return home</Link>
+        <Link href="/">Home</Link>
         {" · "}
-        <Link href="/machines">Browse machines</Link>
+        <Link href="/machines">Machines</Link>
+        {" · "}
+        <Link href={"/contact" as Route}>Contact</Link>
       </nav>
     </main>
   );
