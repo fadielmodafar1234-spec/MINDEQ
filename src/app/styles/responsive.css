@@ -1,0 +1,144 @@
+@media (hover: hover) {
+  .site-header__brand:hover,
+  .site-nav a:not(.action-link):hover,
+  .site-footer__nav a:hover,
+  .action-link:hover {
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+  }
+}
+
+@media (max-width: 48rem) {
+  html.mobile-menu-open,
+  html.mobile-menu-open body {
+    overflow: hidden;
+  }
+
+  :root {
+    --grid-columns: 4;
+    --grid-gap: var(--space-4);
+    --page-gutter: var(--space-4);
+    --section-space: var(--space-8);
+  }
+
+  .technical-value {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+
+  .site-nav {
+    display: none;
+  }
+
+  .site-mobile-nav {
+    display: block;
+  }
+
+  .site-mobile-nav summary {
+    min-width: var(--control-size);
+    min-height: var(--control-size);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-family: var(--font-label);
+    font-size: var(--type-label);
+    font-weight: 700;
+    letter-spacing: var(--tracking-label);
+    list-style: none;
+    text-transform: uppercase;
+  }
+
+  .site-mobile-nav summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .site-mobile-nav[open] nav {
+    position: absolute;
+    inset-inline: var(--page-gutter);
+    inset-block-start: calc(var(--space-8) + var(--space-3));
+    z-index: 10;
+    display: grid;
+    gap: var(--space-2);
+    border: 1px solid var(--color-line);
+    padding: var(--space-4);
+    background: var(--color-surface);
+  }
+
+  .site-mobile-nav[open] nav a {
+    min-height: var(--control-size);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .site-mobile-nav[open] nav .action-link {
+    margin-block-start: var(--space-2);
+  }
+
+  .site-footer__content {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .site-footer__nav {
+    flex-wrap: wrap;
+  }
+
+  .home-hero {
+    min-height: 0;
+  }
+
+  .home-hero__content,
+  .machine-stage,
+  .engineering-statement,
+  .engineering-chapter__copy,
+  .home-chapter-heading,
+  .industry-index,
+  .custom-engineering-chapter__body,
+  .company-facts,
+  .contact-chapter > * {
+    grid-column: 1 / -1;
+  }
+
+  .machine-stage {
+    min-height: 18rem;
+    margin-block-start: var(--space-7);
+    border-block-start: 1px solid
+      color-mix(in srgb, currentColor 35%, transparent);
+    border-inline-start: 0;
+  }
+
+  .home-hero__continue {
+    margin-block-start: var(--space-6);
+  }
+
+  .engineering-statement {
+    font-size: clamp(2.35rem, 12vw, 4.5rem);
+    line-height: 0.92;
+  }
+
+  .engineering-statement span:nth-child(n) {
+    padding-inline-start: 0;
+  }
+
+  .engineering-chapter__copy,
+  .industry-index,
+  .custom-engineering-chapter__body,
+  .company-facts {
+    margin-block-start: var(--space-7);
+  }
+
+  .contact-chapter h2 {
+    font-size: clamp(2.75rem, 14vw, 4.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}

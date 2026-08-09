@@ -1,0 +1,84 @@
+.page-shell {
+  width: calc(100% - (2 * var(--page-gutter)));
+  max-width: var(--container-standard);
+  margin-inline: auto;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.site-header__content,
+.site-footer__content {
+  min-height: var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.site-header__brand,
+.site-nav a,
+.site-footer__nav a {
+  min-height: var(--control-size);
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-header__brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+}
+
+.site-nav,
+.site-footer__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.site-mobile-nav {
+  display: none;
+}
+
+.page-shell {
+  padding-block: clamp(var(--space-7), 8vw, var(--space-9));
+}
+
+.page-shell > * {
+  max-width: var(--container-text);
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-line);
+  padding-block: var(--space-6);
+}
+
+.site-footer__content {
+  min-height: 0;
+}
+
+.site-footer__content p {
+  max-width: var(--container-text);
+}
+
+.page-introduction,
+.machine-page__header,
+.machine-overview,
+.technical-content section {
+  max-width: var(--container-text);
+}
+
+.eyebrow {
+  margin-block-end: var(--space-2);
+  color: var(--color-muted);
+  font-family: var(--font-label);
+  font-size: var(--type-label);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  line-height: 1.2;
+  text-transform: uppercase;
+}

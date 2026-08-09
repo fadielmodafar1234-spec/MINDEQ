@@ -1,0 +1,313 @@
+.homepage .eyebrow {
+  color: inherit;
+}
+
+.home-hero {
+  min-height: clamp(34rem, 70vh, 50rem);
+  align-items: center;
+}
+
+.home-hero__content {
+  z-index: 1;
+  grid-column: 1 / span 5;
+  display: grid;
+  align-content: center;
+}
+
+.home-hero__eyebrow,
+.home-hero__continue {
+  font-family: var(--font-label);
+  font-size: var(--type-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.home-hero h1 {
+  margin-block-end: var(--space-5);
+  font-size: var(--type-display);
+  letter-spacing: -0.055em;
+}
+
+.home-hero__statement {
+  max-width: 32rem;
+  color: var(--color-canvas);
+  font-size: clamp(1.125rem, 1.5vw, 1.5rem);
+}
+
+.home-actions {
+  margin-block-start: var(--space-5);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.home-hero__continue {
+  width: fit-content;
+  min-height: var(--control-size);
+  margin-block-start: var(--space-8);
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-canvas);
+  text-underline-offset: var(--space-2);
+}
+
+.machine-stage {
+  position: relative;
+  isolation: isolate;
+  grid-column: 7 / -1;
+  align-self: stretch;
+  min-height: 28rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-inline-start: 1px solid
+    color-mix(in srgb, currentColor 25%, transparent);
+  padding: var(--space-4);
+}
+
+.machine-stage__meta {
+  width: 100%;
+  max-width: 45rem;
+  margin-block-end: var(--space-3);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  color: var(--color-dark-muted);
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  letter-spacing: var(--tracking-label);
+}
+
+.machine-stage__tag {
+  border: 1px solid var(--color-dark-line);
+  padding: 0.15rem 0.5rem;
+  background: color-mix(in srgb, var(--color-dark-surface) 60%, transparent);
+}
+
+.machine-stage__drawing {
+  width: min(100%, 45rem);
+  overflow: visible;
+}
+
+.machine-stage__outline,
+.machine-stage__detail,
+.machine-stage__datum-line,
+.machine-stage__axis,
+.machine-stage__axis-inner,
+.machine-stage__panel,
+.machine-stage__grid,
+.machine-stage__crosshairs path {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.machine-stage__grid {
+  stroke: color-mix(in srgb, var(--color-canvas) 8%, transparent);
+  stroke-width: 1;
+}
+
+.machine-stage__outline {
+  stroke: var(--color-canvas);
+  stroke-width: 2.5;
+}
+
+.machine-stage__detail,
+.machine-stage__axis {
+  stroke: var(--color-action);
+  stroke-width: 1.75;
+}
+
+.machine-stage__axis-inner {
+  stroke: var(--color-canvas);
+  stroke-width: 1.5;
+}
+
+.machine-stage__crosshairs path {
+  stroke: var(--color-action);
+  stroke-width: 1.5;
+}
+
+.machine-stage__panel {
+  fill: color-mix(in srgb, var(--color-brand) 45%, transparent);
+  stroke: var(--color-canvas);
+  stroke-width: 1.5;
+}
+
+.machine-stage__datum-line {
+  stroke: color-mix(in srgb, var(--color-canvas) 22%, transparent);
+  stroke-dasharray: 4 8;
+  stroke-width: 1;
+}
+
+.machine-stage__dim-text {
+  fill: var(--color-dark-muted);
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+}
+
+.machine-stage__plate {
+  position: absolute;
+  inset: 10% 5%;
+  z-index: -1;
+  border: 1px solid color-mix(in srgb, var(--color-canvas) 14%, transparent);
+}
+
+.engineering-chapter {
+  align-items: end;
+}
+
+.engineering-statement {
+  grid-column: 1 / span 9;
+  margin: 0;
+  font-size: clamp(2.75rem, 7vw, 7rem);
+  letter-spacing: -0.05em;
+  line-height: 0.86;
+}
+
+.engineering-statement span {
+  display: block;
+}
+
+.engineering-statement span:nth-child(2) {
+  padding-inline-start: 8%;
+}
+
+.engineering-statement span:nth-child(3) {
+  padding-inline-start: 16%;
+}
+
+.engineering-statement span:nth-child(4) {
+  padding-inline-start: 24%;
+  color: var(--color-brand);
+}
+
+.engineering-chapter__copy {
+  grid-column: 10 / -1;
+  max-width: 23rem;
+  border-block-start: 1px solid var(--color-line);
+  padding-block-start: var(--space-4);
+  color: var(--color-muted);
+}
+
+.home-chapter-heading {
+  grid-column: 1 / span 5;
+  max-width: 36rem;
+}
+
+.industry-index {
+  grid-column: 7 / -1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.industry-index li {
+  border-block-start: 1px solid var(--color-line);
+  padding-block: var(--space-4);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2.5rem);
+  font-weight: 700;
+  line-height: var(--leading-heading);
+}
+
+.industry-index__num,
+.company-facts__num {
+  color: var(--color-action);
+  font-family: var(--font-label);
+  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+}
+
+.industry-index li:last-child {
+  border-block-end: 1px solid var(--color-line);
+}
+
+.featured-machines-chapter .home-chapter-heading,
+.featured-machines-chapter > .action-link,
+.featured-machines-chapter > .home-empty-state,
+.featured-machines-chapter > .home-machine-grid {
+  grid-column: 1 / -1;
+}
+
+.home-machine-grid {
+  margin-block: var(--space-7) var(--space-5);
+}
+
+.section--dark .machine-card {
+  color: var(--color-ink);
+}
+
+.home-empty-state {
+  margin-block: var(--space-7) var(--space-5);
+  border-block: 1px solid
+    color-mix(in srgb, var(--color-canvas) 45%, transparent);
+  padding-block: var(--space-6);
+  color: var(--color-canvas);
+}
+
+.custom-engineering-chapter,
+.company-proof-chapter {
+  align-items: start;
+}
+
+.custom-engineering-chapter__body {
+  grid-column: 7 / -1;
+}
+
+.company-facts {
+  grid-column: 7 / -1;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  list-style: none;
+}
+
+.company-facts li {
+  border-block-start: 1px solid var(--color-line);
+  padding-block: var(--space-4);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  font-family: var(--font-label);
+  font-size: var(--type-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.custom-engineering-chapter__body > p {
+  max-width: 35rem;
+  font-size: clamp(1.25rem, 2.2vw, 2rem);
+  line-height: 1.35;
+}
+
+
+.company-facts li:last-child {
+  border-block-end: 1px solid var(--color-line);
+}
+
+.contact-chapter > * {
+  grid-column: 2 / span 9;
+}
+
+.contact-chapter h2 {
+  max-width: 62rem;
+  font-size: clamp(3rem, 7vw, 7rem);
+}
+
+.contact-chapter > p:not(.eyebrow) {
+  max-width: 35rem;
+  color: var(--color-canvas);
+}
+
+.contact-chapter > .action-link {
+  margin-block-start: var(--space-5);
+}
