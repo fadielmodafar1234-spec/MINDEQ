@@ -37,7 +37,7 @@
 - Produces `Section({ id, index, label, tone, children })` with `light | dark | surface` tones.
 - Produces semantic CSS variables for colors, typography, spacing, grid, focus, and reduced motion.
 
-- [ ] **Step 1: Write the primitive and CSS-contract test**
+- [x] **Step 1: Write the primitive and CSS-contract test**
 
 ```tsx
 import { readFileSync } from "node:fs";
@@ -75,13 +75,13 @@ describe("static design foundation", () => {
 });
 ```
 
-- [ ] **Step 2: Run the focused test and confirm RED**
+- [x] **Step 2: Run the focused test and confirm RED**
 
 Run: `pnpm test src/components/ui/static-foundation.test.tsx`
 
 Expected: FAIL because the three primitive modules do not exist.
 
-- [ ] **Step 3: Implement the typed primitives**
+- [x] **Step 3: Implement the typed primitives**
 
 Use direct imports and semantic elements. `Section` must render its datum label as visible text, `Container` must support `div`, `header`, and `footer`, and `ActionLink` must render a Next.js `Link` with the selected class.
 
@@ -94,11 +94,11 @@ Use direct imports and semantic elements. `Section` must render its datum label 
 </section>
 ```
 
-- [ ] **Step 4: Replace the baseline stylesheet with the semantic system**
+- [x] **Step 4: Replace the baseline stylesheet with the semantic system**
 
 Define the exact color values from the design spec, spacing steps `0.25rem, 0.5rem, 0.75rem, 1rem, 1.5rem, 2rem, 3rem, 4rem, 6rem, 8rem`, responsive display/body/label roles, 12-column desktop and 4-column mobile grids, three container sizes, action variants, skip/focus styles, dark/surface section tones, and `prefers-reduced-motion` transition removal. Preserve and rebase existing machine catalogue/detail classes on the new tokens.
 
-- [ ] **Step 5: Confirm GREEN and run typecheck**
+- [x] **Step 5: Confirm GREEN and run typecheck**
 
 Run: `pnpm test src/components/ui/static-foundation.test.tsx && pnpm typecheck`
 
@@ -118,7 +118,7 @@ Expected: all focused tests pass and TypeScript exits zero.
 - Produces `SiteFooter()` with approved identity copy and the same route system.
 - Root layout retains the skip link and wraps all routes with the shared shell.
 
-- [ ] **Step 1: Write the server-rendered shell test**
+- [x] **Step 1: Write the server-rendered shell test**
 
 ```tsx
 import { renderToStaticMarkup } from "react-dom/server";
@@ -139,21 +139,21 @@ describe("site shell", () => {
 });
 ```
 
-- [ ] **Step 2: Run the focused test and confirm RED**
+- [x] **Step 2: Run the focused test and confirm RED**
 
 Run: `pnpm test src/components/layout/site-shell.test.tsx`
 
 Expected: FAIL because the shell components do not exist.
 
-- [ ] **Step 3: Implement the header and footer**
+- [x] **Step 3: Implement the header and footer**
 
 Render a standard desktop nav plus a native `<details><summary>Menu</summary>` mobile disclosure. Keep all labels literal and approved: `Home`, `Machines`, `Expertise`, and `Contact`. Use `ActionLink` for the contact action and `Container` for alignment.
 
-- [ ] **Step 4: Integrate the shell and recovery route**
+- [x] **Step 4: Integrate the shell and recovery route**
 
 Replace inline header/footer markup in `layout.tsx`. Update `not-found.tsx` to include named links to Home, Machines, and Contact while keeping one `main#main-content` and one `h1`.
 
-- [ ] **Step 5: Confirm GREEN**
+- [x] **Step 5: Confirm GREEN**
 
 Run: `pnpm test src/components/layout/site-shell.test.tsx && pnpm typecheck`
 
@@ -179,7 +179,7 @@ Expected: all focused tests pass and TypeScript exits zero.
 - Each homepage chapter is a focused Server Component.
 - `page.tsx` maps `getFeaturedMachines()` into the safe homepage prop shape.
 
-- [ ] **Step 1: Write the ordered homepage test**
+- [x] **Step 1: Write the ordered homepage test**
 
 ```tsx
 import { renderToStaticMarkup } from "react-dom/server";
@@ -215,17 +215,17 @@ describe("homepage", () => {
 });
 ```
 
-- [ ] **Step 2: Run the focused test and confirm RED**
+- [x] **Step 2: Run the focused test and confirm RED**
 
 Run: `pnpm test src/components/home/homepage.test.tsx`
 
 Expected: FAIL because `Homepage` does not exist.
 
-- [ ] **Step 3: Implement the homepage chapters**
+- [x] **Step 3: Implement the homepage chapters**
 
 Use the exact IDs, index values `01` through `07`, and content authorized in the design spec. `MachineStage` must render a decorative `aria-hidden="true"` SVG/CSS assembly with no product name, specification, or interactive behavior. `FeaturedMachinesSection` must render `MachineCard` only for supplied published records and otherwise render the exact tested empty-state sentence.
 
-- [ ] **Step 4: Connect the published-only repository query**
+- [x] **Step 4: Connect the published-only repository query**
 
 ```tsx
 export default function HomePage() {
@@ -243,7 +243,7 @@ export default function HomePage() {
 }
 ```
 
-- [ ] **Step 5: Confirm GREEN**
+- [x] **Step 5: Confirm GREEN**
 
 Run: `pnpm test src/components/home/homepage.test.tsx && pnpm typecheck`
 
@@ -263,25 +263,25 @@ Expected: all focused tests pass and TypeScript exits zero.
 - `/contact` renders inquiry framing without a fake form or unverified contact details.
 - Sitemap adds `/expertise` and `/contact` while retaining published-only machine slugs.
 
-- [ ] **Step 1: Write the static-route and sitemap tests**
+- [x] **Step 1: Write the static-route and sitemap tests**
 
 Render both route components to static markup and assert one `h1`, route cross-links, no `<form`, and no invented email/telephone. Extend the sitemap expectation to exactly `/`, `/machines`, `/expertise`, and `/contact` for an empty published catalogue.
 
-- [ ] **Step 2: Run the focused tests and confirm RED**
+- [x] **Step 2: Run the focused tests and confirm RED**
 
 Run: `pnpm test src/app/static-routes.test.tsx src/app/sitemap.test.ts`
 
 Expected: FAIL because the route modules do not exist and sitemap lacks two routes.
 
-- [ ] **Step 3: Implement both route foundations**
+- [x] **Step 3: Implement both route foundations**
 
 Use `Section`, `Container`, and `ActionLink`. Expertise may state only that MINDEQ is a Moroccan industrial machine manufacturer and custom-engineering partner across the five approved industry areas. Contact must explain the inquiry intent and that production delivery/privacy handling require approval; it must not render a submission form.
 
-- [ ] **Step 4: Extend the sitemap**
+- [x] **Step 4: Extend the sitemap**
 
 Add `/expertise` and `/contact` to the static path array before published machine slugs.
 
-- [ ] **Step 5: Confirm GREEN**
+- [x] **Step 5: Confirm GREEN**
 
 Run: `pnpm test src/app/static-routes.test.tsx src/app/sitemap.test.ts && pnpm typecheck`
 
@@ -296,15 +296,15 @@ Expected: all focused tests pass and TypeScript exits zero.
 **Interfaces:**
 - Produces a committed static foundation ready for Task 05 browser-led visual art direction.
 
-- [ ] **Step 1: Run automated validation**
+- [x] **Step 1: Run automated validation**
 
 Run `pnpm lint`, `pnpm typecheck`, and `pnpm test`. Require zero warnings/errors and all tests passing.
 
-- [ ] **Step 2: Run a production build**
+- [x] **Step 2: Run a production build**
 
 Set `MINDEQ_SITE_URL=https://mindeq.example` only for local verification, then run `pnpm build`. Require a successful build with `/`, `/machines`, `/machines/[slug]`, `/expertise`, `/contact`, and `/sitemap.xml` in the route table.
 
-- [ ] **Step 3: Run browser validation**
+- [x] **Step 3: Run browser validation**
 
 Start the production server with a hidden process. At 1920×1080, 1440×900, 1366×768, 430×932, and 390×844 verify:
 
@@ -316,10 +316,10 @@ Start the production server with a hidden process. At 1920×1080, 1440×900, 136
 - the development machine is absent from homepage and production catalogue;
 - the browser console has no hydration or runtime errors.
 
-- [ ] **Step 4: Review the complete diff**
+- [x] **Step 4: Review the complete diff**
 
 Run `git diff --check`, review every staged path, scan for common secret patterns, confirm no `.next`, logs, local `.env`, screenshots, generated output, 3D/animation dependencies, or unverified factual claims are staged.
 
-- [ ] **Step 5: Commit the implementation**
+- [x] **Step 5: Commit the implementation**
 
 Commit with `feat: build static site foundation` and preserve the branch without pushing or starting Task 05.
