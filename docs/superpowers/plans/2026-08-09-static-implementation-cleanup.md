@@ -298,21 +298,21 @@ git commit -m "refactor: stabilize static rendering boundaries"
 - Update: this plan’s checkboxes after evidence exists.
 - Verify: complete `28c903f..HEAD` range.
 
-- [ ] **Step 1: Run fresh automated validation**
+- [x] **Step 1: Run fresh automated validation**
 
 Run `pnpm lint`, `pnpm typecheck`, `pnpm test`, and the production build with `MINDEQ_SITE_URL=https://mindeq.example`.
 
 Expected: zero warnings/errors, every test passes, and all required routes build.
 
-- [ ] **Step 2: Capture and inspect Task 06 screenshots**
+- [x] **Step 2: Capture and inspect Task 06 screenshots**
 
 Capture `output/playwright/task06-result-{width}x{height}.png` at the five baseline viewports. Compare against Task 05 screenshots, allowing only the approved neutral CAD-label glyph differences. Confirm no clipping, overflow, spacing drift, wrapping regression, focus regression, or mobile-menu regression.
 
-- [ ] **Step 3: Validate browser behavior and route output**
+- [x] **Step 3: Validate browser behavior and route output**
 
 Verify exact section order, every primary route, mobile menu open/Escape/link-close behavior, visible focus, no horizontal overflow, no unsupported CAD claim, no development-machine production leak, and no hydration/runtime errors.
 
-- [ ] **Step 4: Review repository hygiene**
+- [x] **Step 4: Review repository hygiene**
 
 Run `git diff --check`, inspect every changed path, scan tracked source for secrets and forbidden animation/3D dependencies, and confirm `.next`, logs, screenshots, local `.env`, and generated output are not tracked.
 
