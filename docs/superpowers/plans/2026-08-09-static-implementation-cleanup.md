@@ -316,11 +316,11 @@ Verify exact section order, every primary route, mobile menu open/Escape/link-cl
 
 Run `git diff --check`, inspect every changed path, scan tracked source for secrets and forbidden animation/3D dependencies, and confirm `.next`, logs, screenshots, local `.env`, and generated output are not tracked.
 
-- [ ] **Step 5: Request final code review and resolve all Critical/Important findings**
+- [x] **Step 5: Request final code review and resolve all Critical/Important findings**
 
 Review `28c903f..HEAD` against Task 06, the design spec, the locked decision, test coverage, and the browser evidence. Re-run affected validations after any fix.
 
-- [ ] **Step 6: Commit the completed checklist and preserve the branch**
+- [x] **Step 6: Commit the completed checklist and preserve the branch**
 
 ```bash
 git add docs/superpowers/plans/2026-08-09-static-implementation-cleanup.md
