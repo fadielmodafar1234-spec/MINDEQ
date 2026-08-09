@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { MachineCard } from "@/components/machines/machine-card";
+import { toMachineCardSummary } from "@/lib/machines/card-summary";
 import { getMachinesForEnvironment } from "@/lib/machines/repository";
 
 export const metadata: Metadata = {
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function MachinesPage() {
-  const machines = getMachinesForEnvironment();
+  const machines = getMachinesForEnvironment().map(toMachineCardSummary);
 
   return (
     <main className="catalogue-shell page-shell" id="main-content">
@@ -25,18 +26,7 @@ export default function MachinesPage() {
       {machines.length > 0 ? (
         <div className="machine-grid">
           {machines.map((machine) => (
-            <MachineCard
-              key={machine.slug}
-              machine={{
-                slug: machine.slug,
-                name: machine.name,
-                shortName: machine.shortName,
-                category: machine.category,
-                tagline: machine.tagline,
-                heroImage: machine.heroImage,
-                publicationStatus: machine.publicationStatus,
-              }}
-            />
+            <MachineCard key={machine.slug} machine={machine} />
           ))}
         </div>
       ) : (

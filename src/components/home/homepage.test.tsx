@@ -103,4 +103,14 @@ describe("homepage", () => {
       '<div aria-hidden="true" class="machine-stage">',
     );
   });
+
+  it("uses neutral reference labels in the decorative machine stage", () => {
+    const markup = renderToStaticMarkup(<Homepage featuredMachines={[]} />);
+
+    expect(markup).toContain("REF: STATIC-DATUM");
+    expect(markup).toContain("DATUM X // REFERENCE");
+    expect(markup).toContain("DATUM Y // REFERENCE");
+    expect(markup).not.toContain("MINDEQ-TCM1600");
+    expect(markup).not.toMatch(/\b\d+\s*mm\b/i);
+  });
 });

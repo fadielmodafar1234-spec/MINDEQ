@@ -1,16 +1,9 @@
 import { Homepage } from "@/components/home/homepage";
+import { toMachineCardSummary } from "@/lib/machines/card-summary";
 import { getFeaturedMachines } from "@/lib/machines/repository";
 
 export default function HomePage() {
-  const featuredMachines = getFeaturedMachines().map((machine) => ({
-    slug: machine.slug,
-    name: machine.name,
-    shortName: machine.shortName,
-    category: machine.category,
-    tagline: machine.tagline,
-    heroImage: machine.heroImage,
-    publicationStatus: machine.publicationStatus,
-  }));
+  const featuredMachines = getFeaturedMachines().map(toMachineCardSummary);
 
   return <Homepage featuredMachines={featuredMachines} />;
 }

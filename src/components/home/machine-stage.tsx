@@ -3,7 +3,7 @@ export function MachineStage() {
     <div aria-hidden="true" className="machine-stage">
       <div className="machine-stage__meta">
         <span className="machine-stage__tag">CAD STAGE // MODEL PREVIEW</span>
-        <span className="machine-stage__tag">REF: MINDEQ-TCM1600</span>
+        <span className="machine-stage__tag">REF: STATIC-DATUM</span>
       </div>
       <svg
         className="machine-stage__drawing"
@@ -72,8 +72,8 @@ export function MachineStage() {
         {/* Dimension Vectors & Technical Marks */}
         <g className="machine-stage__dimensions">
           <line x1="82" y1="480" x2="638" y2="480" stroke="currentColor" strokeDasharray="3 3" />
-          <text x="360" y="498" textAnchor="middle" className="machine-stage__dim-text">DIM W: 1600 mm</text>
-          <text x="70" y="270" textAnchor="middle" className="machine-stage__dim-text" transform="rotate(-90 70 270)">DIM H: 1250 mm</text>
+          <text x="360" y="498" textAnchor="middle" className="machine-stage__dim-text">DATUM X // REFERENCE</text>
+          <text x="70" y="270" textAnchor="middle" className="machine-stage__dim-text" transform="rotate(-90 70 270)">DATUM Y // REFERENCE</text>
         </g>
       </svg>
       <span className="machine-stage__plate" />

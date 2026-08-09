@@ -2,21 +2,10 @@ import { MachineCard } from "@/components/machines/machine-card";
 import { ActionLink } from "@/components/ui/action-link";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import type { Machine } from "@/lib/machines/types";
-
-export type FeaturedMachine = Pick<
-  Machine,
-  | "slug"
-  | "name"
-  | "shortName"
-  | "category"
-  | "tagline"
-  | "heroImage"
-  | "publicationStatus"
->;
+import type { MachineCardSummary } from "@/lib/machines/card-summary";
 
 type FeaturedMachinesSectionProps = Readonly<{
-  featuredMachines: readonly FeaturedMachine[];
+  featuredMachines: readonly MachineCardSummary[];
 }>;
 
 export function FeaturedMachinesSection({

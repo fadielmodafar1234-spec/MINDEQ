@@ -1,24 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import type { Machine } from "@/lib/machines/types";
+import type { MachineCardSummary } from "@/lib/machines/card-summary";
 
 import { DevelopmentPlaceholderNotice } from "./development-placeholder-notice";
 
-type MachineCardMachine = Pick<
-  Machine,
-  | "slug"
-  | "name"
-  | "shortName"
-  | "category"
-  | "tagline"
-  | "heroImage"
-  | "publicationStatus"
->;
-
 type MachineCardProps = Readonly<{
   headingLevel?: "h2" | "h3";
-  machine: MachineCardMachine;
+  machine: MachineCardSummary;
 }>;
 
 export function MachineCard({ headingLevel, machine }: MachineCardProps) {
