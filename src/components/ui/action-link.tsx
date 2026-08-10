@@ -1,10 +1,9 @@
-import Link from "next/link";
-import type { Route } from "next";
+import Link, { type LinkProps } from "next/link";
 import type { ReactNode } from "react";
 
 type ActionLinkProps = Readonly<{
   children: ReactNode;
-  href: Route;
+  href: LinkProps["href"];
   variant: "primary" | "secondary" | "text";
 }>;
 

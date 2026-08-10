@@ -1,38 +1,52 @@
+import Image from "next/image";
+
+import type {
+  MachineDetailPageModel,
+  MachineDetailTechnicalGroup,
+  MachineDetailTechnicalItem,
+} from "@/lib/machines/detail-page";
 import type { Machine } from "@/lib/machines/types";
 
-type TechnicalMachineContent = Pick<
-  Machine,
-  | "applications"
-  | "features"
-  | "specifications"
-  | "dimensions"
-  | "hotspots"
-  | "documentation"
->;
+import { MachineTechnicalTable } from "./machine-technical-table";
+
+type TechnicalMachineContent = Readonly<{
+  applications: MachineDetailPageModel["applications"];
+  features: MachineDetailPageModel["features"];
+  specifications: MachineDetailPageModel["specificationGroups"];
+  dimensions: MachineDetailPageModel["dimensionGroups"];
+  hotspots: readonly Readonly<
+    Omit<Machine["hotspots"][number], "technicalValues"> & {
+      technicalValues?: readonly MachineDetailTechnicalItem[] | undefined;
+    }
+  >[];
+  documentation: MachineDetailPageModel["documentation"];
+}>;
 
 type MachineTechnicalContentProps = Readonly<{
   machine: TechnicalMachineContent;
 }>;
 
+function withPresentableItems(
+  groups: readonly MachineDetailTechnicalGroup[],
+): readonly MachineDetailTechnicalGroup[] {
+  return groups.flatMap((group) => {
+    const items = group.items.filter(
+      (item) => item.verificationStatus !== "rejected-or-superseded",
+    );
+
+    return items.length > 0 ? [{ ...group, items }] : [];
+  });
+}
+
 export function MachineTechnicalContent({
   machine,
 }: MachineTechnicalContentProps) {
-  const specificationGroups = machine.specifications
-    .map((group) => ({
-      ...group,
-      items: group.items.filter(
-        (item) => item.verificationStatus !== "rejected-or-superseded",
-      ),
-    }))
-    .filter((group) => group.items.length > 0);
-  const dimensionGroups = machine.dimensions
-    .map((group) => ({
-      ...group,
-      items: group.items.filter(
-        (item) => item.verificationStatus !== "rejected-or-superseded",
-      ),
-    }))
-    .filter((group) => group.items.length > 0);
+  const specificationGroups = withPresentableItems(machine.specifications);
+  const dimensionGroups = machine.dimensions.flatMap((group) => {
+    const [presentableGroup] = withPresentableItems([group]);
+
+    return presentableGroup ? [{ ...group, items: presentableGroup.items }] : [];
+  });
   const hasContent =
     machine.applications.length > 0 ||
     machine.features.length > 0 ||
@@ -78,37 +92,27 @@ export function MachineTechnicalContent({
       ) : null}
 
       {specificationGroups.map((group) => (
-        <section aria-labelledby={`${group.id}-heading`} key={group.id}>
-          <h2 id={`${group.id}-heading`}>{group.label}</h2>
-          <dl>
-            {group.items.map((item) => (
-              <div className="technical-value" key={item.id}>
-                <dt>{item.label}</dt>
-                <dd>
-                  {item.value}
-                  {item.unit ? ` ${item.unit}` : null}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </section>
+        <MachineTechnicalTable group={group} key={group.id} />
       ))}
 
       {dimensionGroups.map((group) => (
-        <section aria-labelledby={`${group.id}-heading`} key={group.id}>
-          <h2 id={`${group.id}-heading`}>{group.label}</h2>
-          <dl>
-            {group.items.map((item) => (
-              <div className="technical-value" key={item.id}>
-                <dt>{item.label}</dt>
-                <dd>
-                  {item.value}
-                  {item.unit ? ` ${item.unit}` : null}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </section>
+        <div className="machine-dimension-group" key={group.id}>
+          <MachineTechnicalTable group={group} />
+          {group.drawing ? (
+            <figure>
+              <Image
+                alt={group.drawing.alt}
+                height={group.drawing.height}
+                sizes="(max-width: 72rem) 100vw, 72rem"
+                src={group.drawing.src}
+                width={group.drawing.width}
+              />
+              {group.drawing.caption ? (
+                <figcaption>{group.drawing.caption}</figcaption>
+              ) : null}
+            </figure>
+          ) : null}
+        </div>
       ))}
 
       {machine.hotspots.length > 0 ? (
@@ -126,17 +130,14 @@ export function MachineTechnicalContent({
                   <strong>{hotspot.label}</strong>
                   <p>{hotspot.description}</p>
                   {technicalValues.length > 0 ? (
-                    <dl>
-                      {technicalValues.map((item) => (
-                        <div className="technical-value" key={item.id}>
-                          <dt>{item.label}</dt>
-                          <dd>
-                            {item.value}
-                            {item.unit ? ` ${item.unit}` : null}
-                          </dd>
-                        </div>
-                      ))}
-                    </dl>
+                    <MachineTechnicalTable
+                      group={{
+                        id: `${hotspot.id}-technical-values`,
+                        label: `${hotspot.label} technical values`,
+                        items: technicalValues,
+                      }}
+                      headingLevel="h3"
+                    />
                   ) : null}
                 </li>
               );
@@ -151,7 +152,18 @@ export function MachineTechnicalContent({
           <ul>
             {machine.documentation.map((document) => (
               <li key={document.id}>
-                <a href={document.file}>{document.title}</a>
+                <a download href={document.file}>
+                  {document.title}
+                </a>
+                <span>
+                  {document.type} · {document.language}
+                </span>
+                {document.revision ? (
+                  <span>Revision {document.revision}</span>
+                ) : null}
+                {document.date ? (
+                  <time dateTime={document.date}>{document.date}</time>
+                ) : null}
               </li>
             ))}
           </ul>

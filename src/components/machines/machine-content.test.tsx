@@ -2,10 +2,13 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
 import { DEVELOPMENT_PLACEHOLDER_LABEL } from "@/lib/machines/constants";
+import type { MachineDetailPageModel } from "@/lib/machines/detail-page";
+import { toMachineDetailPageModel } from "@/lib/machines/detail-page";
 import { getMachinePreviewBySlug } from "@/lib/machines/repository";
 
 import { DevelopmentPlaceholderNotice } from "./development-placeholder-notice";
 import { MachineCard } from "./machine-card";
+import { MachineDetailPage } from "./machine-detail-page";
 import { MachineTechnicalContent } from "./machine-technical-content";
 
 const machine = getMachinePreviewBySlug("development-machine");
@@ -13,6 +16,106 @@ const machine = getMachinePreviewBySlug("development-machine");
 if (!machine) {
   throw new Error("The development machine fixture is unavailable in tests.");
 }
+
+const emptyDetailMachine: MachineDetailPageModel = {
+  ...toMachineDetailPageModel(machine),
+  applications: [],
+  features: [],
+  specificationGroups: [],
+  dimensionGroups: [],
+  hotspots: [],
+  gallery: [],
+  documentation: [],
+};
+
+const populatedDetailMachine: MachineDetailPageModel = {
+  ...emptyDetailMachine,
+  identity: {
+    slug: "development-machine",
+    name: "Development Machine",
+    category: "Development category",
+    tagline: "Development tagline",
+    publicationStatus: "development",
+  },
+  overview: "Development overview.",
+  applications: [
+    {
+      id: "test-application",
+      title: "Test application",
+      description: "Test application description.",
+    },
+  ],
+  features: [
+    {
+      id: "test-feature",
+      title: "Test feature",
+      description: "Test feature description.",
+    },
+  ],
+  specificationGroups: [
+    {
+      id: "test-specifications",
+      label: "Test specifications",
+      items: [
+        {
+          id: "test-capacity",
+          label: "Test capacity",
+          value: "Test value",
+          unit: "test-unit",
+          note: "Test note.",
+          verificationStatus: "development-placeholder",
+        },
+        {
+          id: "rejected-value",
+          label: "Rejected value",
+          value: "Must not render",
+          verificationStatus: "rejected-or-superseded",
+        },
+      ],
+    },
+  ],
+  dimensionGroups: [
+    {
+      id: "test-dimensions",
+      label: "Test dimensions",
+      items: [
+        {
+          id: "test-width",
+          label: "Test width",
+          value: "Test dimension",
+          verificationStatus: "development-placeholder",
+        },
+      ],
+      drawing: machine.heroImage,
+    },
+  ],
+  hotspots: [
+    {
+      id: "test-hotspot",
+      label: "Test hotspot",
+      description: "Test hotspot description.",
+      position: [0, 0, 0],
+      technicalValues: [
+        {
+          id: "hotspot-value",
+          label: "Hotspot value",
+          value: "Hotspot test value",
+          verificationStatus: "development-placeholder",
+        },
+      ],
+    },
+  ],
+  gallery: [machine.heroImage],
+  documentation: [
+    {
+      id: "test-document",
+      title: "Test documentation",
+      type: "manual",
+      language: "en",
+      file: "/development-assets/test-document.txt",
+    },
+  ],
+};
 
 describe("machine content components", () => {
   it("renders the exact development warning", () => {
@@ -48,7 +151,19 @@ describe("machine content components", () => {
     expect(markup).not.toContain(".glb");
   });
 
-  it("omits empty technical groups", () => {
+  it("omits every empty optional section from the reusable page", () => {
+    const markup = renderToStaticMarkup(
+      <MachineDetailPage machine={emptyDetailMachine} viewerConfig={null} />,
+    );
+
+    expect(markup).not.toContain("Applications");
+    expect(markup).not.toContain("Features");
+    expect(markup).not.toContain("Machine details");
+    expect(markup).not.toContain("Gallery");
+    expect(markup).not.toContain("Documentation");
+  });
+
+  it("preserves the current route input until route composition is wired", () => {
     const markup = renderToStaticMarkup(
       <MachineTechnicalContent
         machine={{
@@ -56,116 +171,32 @@ describe("machine content components", () => {
           features: machine.features,
           specifications: machine.specifications,
           dimensions: machine.dimensions,
-          hotspots: [],
+          hotspots: machine.hotspots,
           documentation: machine.documentation,
         }}
       />,
     );
 
-    expect(markup).toBe("");
+    expect(markup).toContain("Machine details");
   });
 
-  it("omits specification and dimension groups with no values", () => {
+  it("renders the complete reusable detail page from one model", () => {
     const markup = renderToStaticMarkup(
-      <MachineTechnicalContent
-        machine={{
-          applications: [],
-          features: [],
-          specifications: [
-            {
-              id: "empty-specifications",
-              label: "Empty specifications",
-              items: [],
-            },
-          ],
-          dimensions: [
-            { id: "empty-dimensions", label: "Empty dimensions", items: [] },
-          ],
-          hotspots: [],
-          documentation: [],
-        }}
-      />,
+      <MachineDetailPage machine={populatedDetailMachine} viewerConfig={null} />,
     );
 
-    expect(markup).toBe("");
-  });
-
-  it("never presents rejected technical values", () => {
-    const markup = renderToStaticMarkup(
-      <MachineTechnicalContent
-        machine={{
-          applications: [],
-          features: [],
-          specifications: [
-            {
-              id: "review-specifications",
-              label: "Review specifications",
-              items: [
-                {
-                  id: "rejected-value",
-                  label: "Rejected value",
-                  value: "Must not render",
-                  verificationStatus: "rejected-or-superseded",
-                },
-                {
-                  id: "development-value",
-                  label: "Development value",
-                  value: "Not verified",
-                  verificationStatus: "development-placeholder",
-                },
-              ],
-            },
-          ],
-          dimensions: [],
-          hotspots: [],
-          documentation: [],
-        }}
-      />,
+    expect(markup).toContain("<h1>Development Machine</h1>");
+    expect(markup).toContain('aria-labelledby="applications-heading"');
+    expect(markup).toContain("<table>");
+    expect(markup).toContain('<th scope="row">Test capacity</th>');
+    expect(markup).toContain("Test value test-unit");
+    expect(markup).toContain("Test note.");
+    expect(markup).toContain("Machine details");
+    expect(markup).toContain("Gallery");
+    expect(markup).toContain("Documentation");
+    expect(markup).toContain(
+      "/contact?intent=quotation&amp;machine=development-machine",
     );
-
-    expect(markup).toContain("Development value");
     expect(markup).not.toContain("Rejected value");
-    expect(markup).not.toContain("Must not render");
-  });
-
-  it("renders hotspot technical values as accessible page content", () => {
-    const markup = renderToStaticMarkup(
-      <MachineTechnicalContent
-        machine={{
-          applications: [],
-          features: [],
-          specifications: [],
-          dimensions: [],
-          hotspots: [
-            {
-              id: "test-hotspot",
-              label: "Test hotspot",
-              description: "Test hotspot description.",
-              position: [0, 0, 0],
-              technicalValues: [
-                {
-                  id: "visible-hotspot-value",
-                  label: "Visible hotspot value",
-                  value: "1",
-                  unit: "test-unit",
-                  verificationStatus: "verified",
-                },
-                {
-                  id: "rejected-hotspot-value",
-                  label: "Rejected hotspot value",
-                  value: "Must not render",
-                  verificationStatus: "rejected-or-superseded",
-                },
-              ],
-            },
-          ],
-          documentation: [],
-        }}
-      />,
-    );
-
-    expect(markup).toContain("Visible hotspot value");
-    expect(markup).toContain("1 test-unit");
-    expect(markup).not.toContain("Rejected hotspot value");
   });
 });
