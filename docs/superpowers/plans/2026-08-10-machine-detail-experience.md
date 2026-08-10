@@ -475,7 +475,7 @@ git add src/app/styles src/components/ui/static-foundation.test.tsx docs/superpo
 git commit -m "style: stabilize the machine detail experience"
 ```
 
-- [ ] **Step 8: Request final review and push**
+- [x] **Step 8: Request final review and push**
 
 Review `032adcd..HEAD` against Task 09, resolve every Critical/Important issue,
 rerun affected gates, then push `task-09-machine-detail-experience` without
