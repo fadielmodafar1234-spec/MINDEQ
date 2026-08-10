@@ -22,10 +22,54 @@ export const developmentMachine = {
     publicationStatus: "development",
   },
   gallery: [],
-  model: null,
+  model: {
+    id: "development-machine-viewer-model",
+    src: "/api/development-assets/development-machine.viewer.glb",
+    variant: "viewer",
+    fileBytes: 14212,
+    componentIds: ["base", "tower", "inspection-head", "side-guard"],
+    componentMapVersion: "development-v1",
+    transform: {
+      position: [0, 0, 0],
+      rotation: [0, 0, 0],
+      scale: [1, 1, 1],
+    },
+    cameraPreset: {
+      position: [4, 2.8, 5],
+      target: [0, 0.9, 0],
+      fov: 36,
+    },
+    qualityNotes:
+      "Synthetic local GLB generated only for the Task 07 development pipeline.",
+    publicationStatus: "development",
+  },
   modelMobile: null,
-  modelPoster: null,
-  hotspots: [],
+  modelPoster: {
+    id: "development-machine-model-poster",
+    src: "/placeholders/machine-poster.svg",
+    alt: "Development placeholder graphic shown while the synthetic 3D model loads.",
+    width: 1600,
+    height: 900,
+    publicationStatus: "development",
+  },
+  hotspots: [
+    {
+      id: "development-inspection-head-hotspot",
+      label: "Development component A",
+      description:
+        "DEVELOPMENT PLACEHOLDER — NOT VERIFIED. Synthetic hotspot used to verify component selection.",
+      position: [0.4, 1.45, 0.15],
+      componentId: "inspection-head",
+    },
+    {
+      id: "development-base-hotspot",
+      label: "Development component B",
+      description:
+        "DEVELOPMENT PLACEHOLDER — NOT VERIFIED. Synthetic hotspot used to verify model-local positioning.",
+      position: [-0.7, 0.35, 0.5],
+      componentId: "base",
+    },
+  ],
   documentation: [],
   seo: {
     title: DEVELOPMENT_PLACEHOLDER_LABEL,

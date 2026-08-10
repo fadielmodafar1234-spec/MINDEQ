@@ -56,7 +56,7 @@ describe("machine content components", () => {
           features: machine.features,
           specifications: machine.specifications,
           dimensions: machine.dimensions,
-          hotspots: machine.hotspots,
+          hotspots: [],
           documentation: machine.documentation,
         }}
       />,

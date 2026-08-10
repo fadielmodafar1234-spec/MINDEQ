@@ -3,12 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { MachineViewer } from "@/components/machine-viewer/machine-viewer";
 import { DevelopmentPlaceholderNotice } from "@/components/machines/development-placeholder-notice";
 import { MachineTechnicalContent } from "@/components/machines/machine-technical-content";
 import {
   getMachineForEnvironment,
   getPublishedMachineSlugs,
 } from "@/lib/machines/repository";
+import { createMachineViewerConfig } from "@/lib/machines/viewer-config";
 
 type MachinePageProps = Readonly<{
   params: Promise<{ slug: string }>;
@@ -53,6 +55,7 @@ export default async function MachinePage({ params }: MachinePageProps) {
   }
 
   const poster = machine.modelPoster ?? machine.heroImage;
+  const viewerConfig = createMachineViewerConfig(machine);
 
   return (
     <main className="machine-page page-shell" id="main-content">
@@ -69,15 +72,19 @@ export default async function MachinePage({ params }: MachinePageProps) {
         ) : null}
       </header>
 
-      <Image
-        alt={poster.alt}
-        className="machine-page__poster"
-        height={poster.height}
-        priority
-        sizes="(max-width: 72rem) 100vw, 72rem"
-        src={poster.src}
-        width={poster.width}
-      />
+      {viewerConfig ? (
+        <MachineViewer config={viewerConfig} />
+      ) : (
+        <Image
+          alt={poster.alt}
+          className="machine-page__poster"
+          height={poster.height}
+          priority
+          sizes="(max-width: 72rem) 100vw, 72rem"
+          src={poster.src}
+          width={poster.width}
+        />
+      )}
 
       <section aria-labelledby="overview-heading" className="machine-overview">
         <h2 id="overview-heading">Overview</h2>
