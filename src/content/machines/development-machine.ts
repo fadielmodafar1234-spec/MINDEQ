@@ -151,8 +151,7 @@ export const developmentMachine = {
   ],
   seo: {
     title: DEVELOPMENT_PLACEHOLDER_LABEL,
-    description:
-      "Development-only record used to validate the MINDEQ machine page architecture.",
+    description: `${DEVELOPMENT_PLACEHOLDER_LABEL}. Development-only record used to validate the MINDEQ machine page architecture.`,
     canonicalPath: "/machines/development-machine",
     noIndex: true,
   },

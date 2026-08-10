@@ -45,6 +45,7 @@ describe("machine repository publication boundaries", () => {
 
     expect(machine?.slug).toBe(developmentSlug);
     expect(machine?.tagline).toBe(DEVELOPMENT_PLACEHOLDER_LABEL);
+    expect(machine?.seo.description).toContain(DEVELOPMENT_PLACEHOLDER_LABEL);
     expect(getMachineForEnvironment(developmentSlug)).toBe(machine);
     expect(getMachinesForEnvironment()).toEqual([machine]);
   });
