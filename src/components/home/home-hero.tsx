@@ -1,10 +1,15 @@
 import { ActionLink } from "@/components/ui/action-link";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
+import type { HomepageSceneConfig } from "@/components/homepage-scene/types";
 
-import { MachineStage } from "./machine-stage";
+import { HomepageSceneStage } from "@/components/homepage-scene/homepage-scene";
 
-export function HomeHero() {
+type HomeHeroProps = Readonly<{
+  sceneConfig?: HomepageSceneConfig | null;
+}>;
+
+export function HomeHero({ sceneConfig = null }: HomeHeroProps) {
   return (
     <Section id="hero" index="01" label="Identity" tone="dark">
       <Container className="home-hero" size="wide">
@@ -29,7 +34,7 @@ export function HomeHero() {
             Continue
           </a>
         </div>
-        <MachineStage />
+        <HomepageSceneStage config={sceneConfig} />
       </Container>
     </Section>
   );
