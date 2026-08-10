@@ -57,14 +57,14 @@ export function createDevelopmentHomepageSceneConfig(
   }
 
   const cameraPreset = machine.model.cameraPreset ?? {
-    position: [4.2, 3.2, 5.4],
-    target: [0, 0.95, 0],
-    fov: 36,
+    position: [4.6, 3.4, 5.8],
+    target: [0, 1.05, 0],
+    fov: 34,
   };
   const transform = machine.model.transform ?? {
-    position: [0, 0, 0],
-    rotation: [0, 0, 0],
-    scale: [1, 1, 1],
+    position: [0.3, -0.1, 0],
+    rotation: [0, 0.38, 0],
+    scale: [1.08, 1.08, 1.08],
   };
 
   return {

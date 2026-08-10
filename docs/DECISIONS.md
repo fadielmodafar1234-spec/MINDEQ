@@ -188,3 +188,14 @@ Ensures machine detail pages belong visually to the same heavy industrial design
 
 STATUS:
 LOCKED
+
+---
+
+DECISION:
+Approve Task 12 Hero First Frame Art Direction locked initial composition: 34° narrow isometric FOV camera preset (`[4.6, 3.4, 5.8]`, target `[0, 1.05, 0]`), initial machine transform (`[0.3, -0.1, 0]` position, `21.8°` architectural rotation `[0, 0.38, 0]`, `1.08` scale), high-contrast studio key lighting `3.6`, metallic rim accent light `2.4`, dark industrial background `#0d1210`, and balanced negative space alignment with the `MINDEQ` display headline.
+
+WHY:
+Establishes a campaign-quality initial still frame at scroll position 0 that communicates serious Moroccan industrial manufacturing and engineering dominance across all target viewports before cinematic GSAP scroll motion begins.
+
+STATUS:
+LOCKED
