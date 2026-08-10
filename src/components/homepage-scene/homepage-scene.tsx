@@ -248,7 +248,7 @@ export const HomepageSceneStage = forwardRef<
           </SceneErrorBoundary>
         </div>
       ) : null}
-      <span aria-live="polite" className="visually-hidden">
+      <span aria-live="polite" className="homepage-scene__status">
         {status === "ready"
           ? "Homepage 3D scene ready."
           : status === "loading"
