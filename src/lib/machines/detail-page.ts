@@ -42,12 +42,12 @@ export type MachineDetailPageModel = Readonly<{
   }>;
   overview: string;
   poster: Machine["heroImage"];
-  applications: Machine["applications"];
-  features: Machine["features"];
+  applications: readonly Machine["applications"][number][];
+  features: readonly Machine["features"][number][];
   specificationGroups: readonly MachineDetailTechnicalGroup[];
   dimensionGroups: readonly MachineDetailDimensionGroup[];
   hotspots: readonly MachineDetailHotspot[];
-  gallery: Machine["gallery"];
+  gallery: readonly Machine["gallery"][number][];
   documentation: readonly MachineDetailDocumentation[];
   quotationHref: Readonly<{
     pathname: "/contact";
