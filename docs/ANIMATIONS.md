@@ -127,3 +127,25 @@ For each major animation:
 8. Check that the motion communicates a narrative or interaction purpose.
 
 Visual timing is approved by Antigravity. Architecture, lifecycle, reduced motion, and performance are validated by Codex.
+
+## Task 11 integration boundary
+
+Task 11 provides `HomepageSceneController` but deliberately creates no GSAP or
+ScrollTrigger timeline. Three.js owns the camera target, scene transforms,
+component visibility, explosion state, cloned material values, and demand-render
+invalidation. React owns only coarse lifecycle state such as support, loading,
+viewport presence, document visibility, and quality policy; it is never updated
+on an animation frame.
+
+Future GSAP code owns interpolation. It may tween plain proxy values and call the
+controller setters from its scoped update callbacks, or use approved setter
+plugins, but it must not mutate the R3F scene, query GLTF child indices, or look
+up mesh names. The controller applies absolute values, so refreshes and repeated
+timeline seeks remain deterministic. A timeline starts from the configuration's
+approved initial state and calls `reset()` when it must restore that state.
+
+The future timeline must wait until the scene controller is available, remain
+optional when the development or approved production config is absent, and
+revert its own GSAP context independently of scene disposal. Reduced-motion and
+poster-only mobile policies never initialize cinematic choreography. Task 12
+owns the first frame; later animation work owns timing and scroll choreography.

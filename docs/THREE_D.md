@@ -419,3 +419,87 @@ development record remains excluded from production catalogue, sitemap,
 metadata, and static route output. The synthetic model and hotspots are pipeline
 evidence only; they are not a MINDEQ product and must not be reused as catalogue
 content.
+
+## Task 11 homepage control-system contract
+
+The reusable homepage scene lives in `src/components/homepage-scene/`. It is a
+separate presentation boundary from `MachineViewer`: the detail viewer owns
+direct user controls and hotspots, while the homepage scene exposes deterministic
+imperative values for future art-directed choreography. Neither implementation
+imports a machine record or contains product-specific node names.
+
+### Controller interface and invalidation
+
+`HomepageSceneStage` forwards a `HomepageSceneController` ref with these methods:
+
+- `setCameraPosition(position)` and `setCameraTarget(target)`;
+- `setMachinePosition(position)`, `setMachineRotation(rotation)`, and
+  `setMachineScale(scale)`;
+- `setExplosionProgress(progress)`;
+- `setComponentVisibility(componentId, visible)`;
+- `setHighlightedComponent(componentId | null)`;
+- `setMaterialState(componentId, state | null)`; and
+- `reset()`.
+
+Transform setters copy the supplied tuple into existing Three.js objects. They
+do not retain caller-owned arrays, accumulate deltas, or update React state.
+Explosion progress is clamped to zero through one and always derives positions
+from captured base transforms. Component setters return `false` for an unknown
+configured ID, missing node, or unapproved material state and leave the scene
+unchanged. Every successful setter invalidates the demand render loop. `reset()`
+restores the exact configured camera, target, model transform, explosion state,
+visibility map, highlight, and material-state map.
+
+### Scene configuration and component map
+
+`HomepageSceneConfig<ComponentId>` owns all machine-dependent values:
+
+- model and optional mobile-model URLs;
+- logical component ID to GLTF node-name map;
+- initial camera, target, machine transform, and explosion progress;
+- per-component initial visibility and optional exploded direction/distance;
+- per-component approved named material states;
+- highlight color and strength;
+- typed lighting;
+- desktop and mobile DPR/shadow behavior; and
+- mobile and reduced-motion fallback policy.
+
+Animation code addresses logical component IDs only. It never traverses an
+arbitrary child index. A new hero asset supplies a new configuration and stable
+component map; it does not modify the controller or canvas.
+
+### Material and resource ownership
+
+Drei's `useGLTF` cache owns source scenes, geometries, textures, and source
+materials. Each homepage scene clones the source hierarchy and every material it
+may mutate. Approved material states and highlights are reapplied from immutable
+snapshots, making repeated calls deterministic and preventing changes to cached
+materials. Unmount disposes those cloned materials exactly once. The primitive
+uses `dispose={null}` so an individual scene never disposes shared geometry or
+textures. R3F owns its renderer; the shell and canvas remove their observers,
+media-query handlers, visibility listener, context listeners, and pending timer.
+
+### Progressive enhancement and quality behavior
+
+The existing decorative `MachineStage` remains server-rendered, in normal hero
+flow, and visible until the GLTF is ready. The R3F canvas module and model are
+lazy-loaded only after WebGL support is confirmed and the hero approaches the
+viewport. Model, module, or context failure leaves the static stage usable.
+
+The scene uses a demand render loop while both intersecting the viewport and the
+document is visible; otherwise its frame loop is `never`. Desktop DPR is capped
+at 1.75 and mobile DPR at 1.25, with an absolute cap of 2. The existing
+development proof uses reduced mobile rendering (no antialiasing or shadows).
+Configuration may instead select a poster-only mobile path. The current
+development configuration selects the poster for `prefers-reduced-motion`; a
+future approved scene may opt into a stable, non-animated scene.
+
+### Development proof and production isolation
+
+Task 11 uses only the existing synthetic `development-machine.viewer.glb`.
+Its component IDs, exploded offsets, and approved material-state example live in
+`src/lib/machines/homepage-scene-config.ts`, outside the generic scene. The
+adapter returns `null` in production, so production retains the approved static
+MachineStage and receives no development claims or model request. A real hero
+model is added later by supplying approved configuration; Task 11 does not define
+its camera frame, lighting art direction, or timeline.

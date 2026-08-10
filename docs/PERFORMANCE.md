@@ -152,3 +152,29 @@ A performance optimization passes only when:
 3. accessibility and content behavior do not regress;
 4. production build and relevant tests pass;
 5. the result is checked at representative desktop and mobile conditions.
+
+## Task 11 homepage scene runtime
+
+The homepage WebGL layer progressively enhances the existing MachineStage. Its
+canvas chunk is imported only after WebGL support and viewport proximity checks;
+the representative GLB is requested only in development. Production retains the
+static hero until an approved hero asset is configured and does not request the
+development model.
+
+The stable scene uses R3F's demand render loop. It renders only while the hero is
+near the viewport and the document is visible, and switches to `never` while
+offscreen or hidden. Imperative controller calls explicitly invalidate a frame.
+No per-frame React state, arbitrary traversal, or temporary animation-loop object
+allocation is introduced. R3F handles responsive canvas sizing and orientation
+changes within the reserved hero stage.
+
+Desktop DPR is capped at `[1, 1.75]`; the reduced mobile mode caps DPR at
+`[1, 1.25]`, disables antialiasing, and disables shadows. Configuration may
+select a poster-only mobile fallback. The current reduced-motion policy keeps the
+static MachineStage and skips the canvas/model entirely.
+
+The GLTF cache owns source geometry, textures, and materials. A scene instance
+owns only its cloned materials and disposes them on unmount. Intersection and
+media-query observers, visibility and WebGL-context listeners, and support-check
+timers are removed by their creating component so route changes and development
+remounts do not multiply work.
