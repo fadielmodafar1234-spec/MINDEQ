@@ -92,12 +92,19 @@ export function MachineTechnicalContent({
       ) : null}
 
       {specificationGroups.map((group) => (
-        <MachineTechnicalTable group={group} key={group.id} />
+        <MachineTechnicalTable
+          group={group}
+          headingId={`specification-${group.id}-heading`}
+          key={group.id}
+        />
       ))}
 
       {dimensionGroups.map((group) => (
         <div className="machine-dimension-group" key={group.id}>
-          <MachineTechnicalTable group={group} />
+          <MachineTechnicalTable
+            group={group}
+            headingId={`dimension-${group.id}-heading`}
+          />
           {group.drawing ? (
             <figure>
               <Image
@@ -136,6 +143,7 @@ export function MachineTechnicalContent({
                         label: `${hotspot.label} technical values`,
                         items: technicalValues,
                       }}
+                      headingId={`hotspot-${hotspot.id}-technical-values-heading`}
                       headingLevel="h3"
                     />
                   ) : null}

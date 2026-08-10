@@ -2,18 +2,20 @@ import type { MachineDetailTechnicalGroup } from "@/lib/machines/detail-page";
 
 type MachineTechnicalTableProps = Readonly<{
   group: MachineDetailTechnicalGroup;
+  headingId: string;
   headingLevel?: "h2" | "h3";
 }>;
 
 export function MachineTechnicalTable({
   group,
+  headingId,
   headingLevel: Heading = "h2",
 }: MachineTechnicalTableProps) {
   return (
-    <section aria-labelledby={`${group.id}-heading`}>
-      <Heading id={`${group.id}-heading`}>{group.label}</Heading>
+    <section aria-labelledby={headingId}>
+      <Heading id={headingId}>{group.label}</Heading>
       <div
-        aria-labelledby={`${group.id}-heading`}
+        aria-labelledby={headingId}
         className="machine-table-scroll"
         role="region"
         tabIndex={0}

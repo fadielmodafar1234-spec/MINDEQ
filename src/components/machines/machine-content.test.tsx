@@ -117,6 +117,78 @@ const populatedDetailMachine: MachineDetailPageModel = {
   ],
 };
 
+const collisionDetailMachine: MachineDetailPageModel = {
+  ...populatedDetailMachine,
+  specificationGroups: [
+    {
+      id: "applications",
+      label: "Collision specification A",
+      items: [
+        {
+          id: "collision-specification-a",
+          label: "Collision specification value A",
+          value: "A",
+          verificationStatus: "development-placeholder",
+        },
+      ],
+    },
+    {
+      id: "shared-technical-values",
+      label: "Collision specification B",
+      items: [
+        {
+          id: "collision-specification-b",
+          label: "Collision specification value B",
+          value: "B",
+          verificationStatus: "development-placeholder",
+        },
+      ],
+    },
+  ],
+  dimensionGroups: [
+    {
+      id: "features",
+      label: "Collision dimension A",
+      items: [
+        {
+          id: "collision-dimension-a",
+          label: "Collision dimension value A",
+          value: "A",
+          verificationStatus: "development-placeholder",
+        },
+      ],
+    },
+    {
+      id: "hotspots",
+      label: "Collision dimension B",
+      items: [
+        {
+          id: "collision-dimension-b",
+          label: "Collision dimension value B",
+          value: "B",
+          verificationStatus: "development-placeholder",
+        },
+      ],
+    },
+  ],
+  hotspots: [
+    {
+      id: "shared",
+      label: "Collision hotspot",
+      description: "Collision hotspot description.",
+      position: [0, 0, 0],
+      technicalValues: [
+        {
+          id: "collision-hotspot-value",
+          label: "Collision hotspot value",
+          value: "C",
+          verificationStatus: "development-placeholder",
+        },
+      ],
+    },
+  ],
+};
+
 describe("machine content components", () => {
   it("renders the exact development warning", () => {
     const markup = renderToStaticMarkup(
@@ -178,6 +250,81 @@ describe("machine content components", () => {
     );
 
     expect(markup).toContain("Machine details");
+  });
+
+  it("omits empty and rejected-only technical groups", () => {
+    const markup = renderToStaticMarkup(
+      <MachineTechnicalContent
+        machine={{
+          applications: [],
+          features: [],
+          specifications: [
+            {
+              id: "empty-specifications",
+              label: "Empty specifications",
+              items: [],
+            },
+            {
+              id: "rejected-specifications",
+              label: "Rejected specifications",
+              items: [
+                {
+                  id: "rejected-specification-value",
+                  label: "Rejected specification value",
+                  value: "Must not render",
+                  verificationStatus: "rejected-or-superseded",
+                },
+              ],
+            },
+          ],
+          dimensions: [
+            {
+              id: "empty-dimensions",
+              label: "Empty dimensions",
+              items: [],
+            },
+            {
+              id: "rejected-dimensions",
+              label: "Rejected dimensions",
+              items: [
+                {
+                  id: "rejected-dimension-value",
+                  label: "Rejected dimension value",
+                  value: "Must not render",
+                  verificationStatus: "rejected-or-superseded",
+                },
+              ],
+            },
+          ],
+          hotspots: [],
+          documentation: [],
+        }}
+      />,
+    );
+
+    expect(markup).toBe("");
+    expect(markup).not.toContain("Empty specifications");
+    expect(markup).not.toContain("Rejected specifications");
+    expect(markup).not.toContain("Empty dimensions");
+    expect(markup).not.toContain("Rejected dimensions");
+    expect(markup).not.toContain("Must not render");
+  });
+
+  it("uses unique heading ids and uniquely resolved labels", () => {
+    const markup = renderToStaticMarkup(
+      <MachineDetailPage machine={collisionDetailMachine} viewerConfig={null} />,
+    );
+    const ids = [...markup.matchAll(/\sid="([^"]+)"/g)].map(
+      ([, id]) => id,
+    );
+    const labelledByIds = [
+      ...markup.matchAll(/\saria-labelledby="([^"]+)"/g),
+    ].map(([, id]) => id);
+
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const labelledById of labelledByIds) {
+      expect(ids.filter((id) => id === labelledById)).toHaveLength(1);
+    }
   });
 
   it("renders the complete reusable detail page from one model", () => {
