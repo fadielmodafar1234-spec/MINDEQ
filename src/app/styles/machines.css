@@ -247,11 +247,22 @@
 .technical-content {
   margin-block-start: var(--space-7);
   display: grid;
-  gap: var(--space-6);
+  gap: var(--space-7);
 }
 
 .machine-detail-section {
   min-width: 0;
+}
+
+.machine-detail-section h2 {
+  font-family: var(--font-label);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  border-block-end: 1px solid var(--color-line);
+  padding-block-end: var(--space-2);
+  margin-block-end: var(--space-4);
 }
 
 .machine-overview,
@@ -270,7 +281,7 @@
   min-width: 0;
 }
 
-.technical-content ul {
+.technical-content ul:not(.machine-document-list) {
   margin: 0;
   padding: 0;
   display: grid;
@@ -278,18 +289,37 @@
   list-style: none;
 }
 
+.technical-content ul:not(.machine-document-list) > li {
+  border: 1px solid var(--color-line);
+  border-inline-start: 3px solid var(--color-brand);
+  padding: var(--space-4);
+  background: var(--color-surface);
+}
+
 .technical-content li > * {
   display: block;
 }
 
+.technical-content li > strong {
+  font-family: var(--font-label);
+  font-size: var(--type-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
 .technical-content li > p {
   margin-block-start: var(--space-2);
+  color: var(--color-muted);
 }
 
 .machine-table-scroll {
   max-width: 100%;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
 }
 
 .machine-table-scroll:focus-visible {
@@ -307,20 +337,38 @@
   border-block-end: 1px solid var(--color-line);
 }
 
+.machine-table-scroll tr:last-child {
+  border-block-end: none;
+}
+
 .machine-table-scroll th,
 .machine-table-scroll td {
-  padding: var(--space-3);
+  padding: var(--space-3) var(--space-4);
   text-align: start;
   vertical-align: top;
 }
 
 .machine-table-scroll th {
   width: calc(100% / 3);
+  font-family: var(--font-label);
+  font-size: var(--type-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  border-inline-end: 1px solid var(--color-line);
+}
+
+.machine-table-scroll td {
+  font-variant-numeric: tabular-nums;
 }
 
 .machine-table-scroll small {
   margin-block-start: var(--space-1);
   display: block;
+  color: var(--color-muted);
+  font-size: 0.825rem;
 }
 
 .machine-dimension-group {
@@ -330,6 +378,9 @@
 
 .machine-dimension-group figure {
   margin: 0;
+  border: 1px solid var(--color-line);
+  padding: var(--space-3);
+  background: var(--color-surface);
 }
 
 .machine-dimension-group img {
@@ -338,32 +389,45 @@
 }
 
 .machine-document-list {
+  margin: 0;
+  padding: 0;
   display: grid;
   gap: var(--space-3);
+  list-style: none;
 }
 
-.technical-content section[aria-labelledby="documentation-heading"] li {
-  display: grid;
-  gap: var(--space-1);
+.machine-document-list li {
+  border: 1px solid var(--color-line);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
 }
 
 .technical-content section[aria-labelledby="documentation-heading"] a {
   min-height: var(--control-size);
   display: inline-flex;
   align-items: center;
-  overflow-wrap: anywhere;
+  font-family: var(--font-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-action);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
-.technical-value {
-  border-bottom: 1px solid var(--color-line);
-  padding-block: var(--space-3);
-  display: grid;
-  grid-template-columns: minmax(8rem, 1fr) 2fr;
-  gap: var(--space-4);
-}
-
-.technical-value dd {
-  margin: 0;
+.technical-content section[aria-labelledby="documentation-heading"] span,
+.technical-content section[aria-labelledby="documentation-heading"] time {
+  font-family: var(--font-label);
+  font-size: var(--type-label);
+  color: var(--color-muted);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
 }
 
 .machine-gallery {
@@ -375,6 +439,9 @@
 
 .machine-gallery figure {
   margin: 0;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  padding: var(--space-2);
 }
 
 .machine-gallery img {
@@ -383,6 +450,9 @@
 }
 
 .machine-quotation {
+  border: 1px solid var(--color-line);
+  padding: var(--space-6);
+  background: var(--color-surface);
   display: grid;
   justify-items: start;
   gap: var(--space-3);

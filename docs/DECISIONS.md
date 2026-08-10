@@ -177,3 +177,14 @@ Presents MINDEQ machinery with physical weight, engineered precision, and indust
 
 STATUS:
 LOCKED
+
+---
+
+DECISION:
+Approve Task 10 Machine Page Visual Polish hierarchy: uppercase section headers with bottom border accents, brand-accented left borders on feature/application list cards, 1px bordered technical tables with shaded canvas headers, tactile document download badges with monospaced metadata, and framed quotation CTA matching the homepage visual design system.
+
+WHY:
+Ensures machine detail pages belong visually to the same heavy industrial design system as the homepage while maintaining scannability and high utility for engineers and procurement decision-makers.
+
+STATUS:
+LOCKED
