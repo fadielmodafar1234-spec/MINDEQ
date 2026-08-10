@@ -91,9 +91,23 @@ const glb = await exporter.parseAsync(scene, {
   onlyVisible: true,
 });
 const outputDirectory = join(process.cwd(), ".mindeq-development-assets");
-const outputPath = join(outputDirectory, "development-machine.viewer.glb");
+const modelOutputPath = join(
+  outputDirectory,
+  "development-machine.viewer.glb",
+);
+const documentationOutputPath = join(
+  outputDirectory,
+  "development-machine.documentation.txt",
+);
+const developmentDocumentation =
+  "DEVELOPMENT PLACEHOLDER \u2014 NOT VERIFIED\n\n" +
+  "Synthetic text fixture used only to test the guarded development download.\n";
 
 await mkdir(outputDirectory, { recursive: true });
-await writeFile(outputPath, Buffer.from(glb));
+await Promise.all([
+  writeFile(modelOutputPath, Buffer.from(glb)),
+  writeFile(documentationOutputPath, developmentDocumentation, "utf8"),
+]);
 
-console.log(`Generated ${outputPath} (${glb.byteLength} bytes).`);
+console.log(`Generated ${modelOutputPath} (${glb.byteLength} bytes).`);
+console.log(`Generated ${documentationOutputPath}.`);

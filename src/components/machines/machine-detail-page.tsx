@@ -55,16 +55,7 @@ export function MachineDetailPage({
         <p>{machine.overview}</p>
       </section>
 
-      <MachineTechnicalContent
-        machine={{
-          applications: machine.applications,
-          features: machine.features,
-          specifications: machine.specificationGroups,
-          dimensions: machine.dimensionGroups,
-          hotspots: machine.hotspots,
-          documentation: machine.documentation,
-        }}
-      />
+      <MachineTechnicalContent machine={machine} />
 
       {machine.gallery.length > 0 ? (
         <section aria-labelledby="gallery-heading">

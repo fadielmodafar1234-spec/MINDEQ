@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { MachineViewer } from "@/components/machine-viewer/machine-viewer";
-import { DevelopmentPlaceholderNotice } from "@/components/machines/development-placeholder-notice";
-import { MachineTechnicalContent } from "@/components/machines/machine-technical-content";
+import { MachineDetailPage } from "@/components/machines/machine-detail-page";
+import { toMachineDetailPageModel } from "@/lib/machines/detail-page";
 import {
   getMachineForEnvironment,
   getPublishedMachineSlugs,
@@ -54,73 +51,10 @@ export default async function MachinePage({ params }: MachinePageProps) {
     notFound();
   }
 
-  const poster = machine.modelPoster ?? machine.heroImage;
   const viewerConfig = createMachineViewerConfig(machine);
+  const detailModel = toMachineDetailPageModel(machine);
 
   return (
-    <main className="machine-page page-shell" id="main-content">
-      <Link className="back-link" href="/machines">
-        Back to machines
-      </Link>
-
-      <header className="machine-page__header">
-        <p className="eyebrow">{machine.category.label}</p>
-        <h1>{machine.name}</h1>
-        {machine.tagline ? <p className="machine-tagline">{machine.tagline}</p> : null}
-        {machine.publicationStatus === "development" ? (
-          <DevelopmentPlaceholderNotice />
-        ) : null}
-      </header>
-
-      {viewerConfig ? (
-        <MachineViewer config={viewerConfig} />
-      ) : (
-        <Image
-          alt={poster.alt}
-          className="machine-page__poster"
-          height={poster.height}
-          priority
-          sizes="(max-width: 72rem) 100vw, 72rem"
-          src={poster.src}
-          width={poster.width}
-        />
-      )}
-
-      <section aria-labelledby="overview-heading" className="machine-overview">
-        <h2 id="overview-heading">Overview</h2>
-        <p>{machine.description}</p>
-      </section>
-
-      <MachineTechnicalContent
-        machine={{
-          applications: machine.applications,
-          features: machine.features,
-          specifications: machine.specifications,
-          dimensions: machine.dimensions,
-          hotspots: machine.hotspots,
-          documentation: machine.documentation,
-        }}
-      />
-
-      {machine.gallery.length > 0 ? (
-        <section aria-labelledby="gallery-heading">
-          <h2 id="gallery-heading">Gallery</h2>
-          <div className="machine-gallery">
-            {machine.gallery.map((image) => (
-              <figure key={image.id}>
-                <Image
-                  alt={image.alt}
-                  height={image.height}
-                  sizes="(max-width: 48rem) 100vw, 50vw"
-                  src={image.src}
-                  width={image.width}
-                />
-                {image.caption ? <figcaption>{image.caption}</figcaption> : null}
-              </figure>
-            ))}
-          </div>
-        </section>
-      ) : null}
-    </main>
+    <MachineDetailPage machine={detailModel} viewerConfig={viewerConfig} />
   );
 }

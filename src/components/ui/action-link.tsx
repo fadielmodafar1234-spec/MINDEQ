@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 type ActionLinkProps = Readonly<{
   children: ReactNode;
-  href: LinkProps["href"];
+  href: LinkProps<string>["href"];
   variant: "primary" | "secondary" | "text";
 }>;
 

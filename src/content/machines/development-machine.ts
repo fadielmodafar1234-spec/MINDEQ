@@ -9,10 +9,60 @@ export const developmentMachine = {
   category: machineCategories.customEngineering,
   tagline: DEVELOPMENT_PLACEHOLDER_LABEL,
   description: `${DEVELOPMENT_PLACEHOLDER_LABEL}. This synthetic record validates the reusable machine page and data architecture. It is not a real MINDEQ product.`,
-  applications: [],
-  features: [],
-  specifications: [],
-  dimensions: [],
+  applications: [
+    {
+      id: "development-application",
+      title: "Development application",
+      description: `${DEVELOPMENT_PLACEHOLDER_LABEL}. Synthetic application used only to test the reusable section.`,
+    },
+  ],
+  features: [
+    {
+      id: "development-feature",
+      title: "Development feature",
+      description: `${DEVELOPMENT_PLACEHOLDER_LABEL}. Synthetic feature used only to test component-linked content.`,
+      componentId: "inspection-head",
+    },
+  ],
+  specifications: [
+    {
+      id: "development-specifications",
+      label: "Development specifications",
+      items: [
+        {
+          id: "development-specification-value",
+          label: "Development test parameter",
+          value: DEVELOPMENT_PLACEHOLDER_LABEL,
+          note: "Synthetic value used only to test the reusable table.",
+          verificationStatus: "development-placeholder",
+        },
+      ],
+    },
+  ],
+  dimensions: [
+    {
+      id: "development-dimensions",
+      label: "Development dimensions",
+      items: [
+        {
+          id: "development-dimension-value",
+          label: "Development dimension test parameter",
+          value: DEVELOPMENT_PLACEHOLDER_LABEL,
+          note: "Synthetic value used only to test the reusable dimension table.",
+          verificationStatus: "development-placeholder",
+        },
+      ],
+      drawing: {
+        id: "development-dimension-drawing",
+        src: "/placeholders/machine-poster.svg",
+        alt: "Development placeholder drawing; not a real machine drawing.",
+        width: 1600,
+        height: 900,
+        caption: `${DEVELOPMENT_PLACEHOLDER_LABEL}. Synthetic drawing used only to test dimension media.`,
+        publicationStatus: "development",
+      },
+    },
+  ],
   heroImage: {
     id: "development-machine-hero",
     src: "/placeholders/machine-poster.svg",
@@ -21,7 +71,17 @@ export const developmentMachine = {
     height: 900,
     publicationStatus: "development",
   },
-  gallery: [],
+  gallery: [
+    {
+      id: "development-gallery-item",
+      src: "/placeholders/machine-poster.svg",
+      alt: "Development placeholder gallery graphic; not a real MINDEQ machine.",
+      width: 1600,
+      height: 900,
+      caption: `${DEVELOPMENT_PLACEHOLDER_LABEL}. Synthetic gallery item used only to test figure presentation.`,
+      publicationStatus: "development",
+    },
+  ],
   model: {
     id: "development-machine-viewer-model",
     src: "/api/development-assets/development-machine.viewer.glb",
@@ -60,6 +120,15 @@ export const developmentMachine = {
         "DEVELOPMENT PLACEHOLDER — NOT VERIFIED. Synthetic hotspot used to verify component selection.",
       position: [0.4, 1.45, 0.15],
       componentId: "inspection-head",
+      technicalValues: [
+        {
+          id: "development-hotspot-value",
+          label: "Development hotspot test parameter",
+          value: DEVELOPMENT_PLACEHOLDER_LABEL,
+          note: "Synthetic value used only to test DOM-equivalent hotspot details.",
+          verificationStatus: "development-placeholder",
+        },
+      ],
     },
     {
       id: "development-base-hotspot",
@@ -70,7 +139,16 @@ export const developmentMachine = {
       componentId: "base",
     },
   ],
-  documentation: [],
+  documentation: [
+    {
+      id: "development-documentation",
+      title: "Development documentation fixture",
+      type: "other",
+      language: "en",
+      file: "/api/development-assets/development-machine.documentation.txt",
+      publicationStatus: "development",
+    },
+  ],
   seo: {
     title: DEVELOPMENT_PLACEHOLDER_LABEL,
     description:

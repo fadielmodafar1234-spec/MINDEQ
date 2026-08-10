@@ -1,57 +1,31 @@
 import Image from "next/image";
 
-import type {
-  MachineDetailPageModel,
-  MachineDetailTechnicalGroup,
-  MachineDetailTechnicalItem,
-} from "@/lib/machines/detail-page";
-import type { Machine } from "@/lib/machines/types";
+import type { MachineDetailPageModel } from "@/lib/machines/detail-page";
 
 import { MachineTechnicalTable } from "./machine-technical-table";
 
-type TechnicalMachineContent = Readonly<{
-  applications: MachineDetailPageModel["applications"];
-  features: MachineDetailPageModel["features"];
-  specifications: MachineDetailPageModel["specificationGroups"];
-  dimensions: MachineDetailPageModel["dimensionGroups"];
-  hotspots: readonly Readonly<
-    Omit<Machine["hotspots"][number], "technicalValues"> & {
-      technicalValues?: readonly MachineDetailTechnicalItem[] | undefined;
-    }
-  >[];
-  documentation: MachineDetailPageModel["documentation"];
-}>;
+type TechnicalMachineContent = Pick<
+  MachineDetailPageModel,
+  | "applications"
+  | "features"
+  | "specificationGroups"
+  | "dimensionGroups"
+  | "hotspots"
+  | "documentation"
+>;
 
 type MachineTechnicalContentProps = Readonly<{
   machine: TechnicalMachineContent;
 }>;
 
-function withPresentableItems(
-  groups: readonly MachineDetailTechnicalGroup[],
-): readonly MachineDetailTechnicalGroup[] {
-  return groups.flatMap((group) => {
-    const items = group.items.filter(
-      (item) => item.verificationStatus !== "rejected-or-superseded",
-    );
-
-    return items.length > 0 ? [{ ...group, items }] : [];
-  });
-}
-
 export function MachineTechnicalContent({
   machine,
 }: MachineTechnicalContentProps) {
-  const specificationGroups = withPresentableItems(machine.specifications);
-  const dimensionGroups = machine.dimensions.flatMap((group) => {
-    const [presentableGroup] = withPresentableItems([group]);
-
-    return presentableGroup ? [{ ...group, items: presentableGroup.items }] : [];
-  });
   const hasContent =
     machine.applications.length > 0 ||
     machine.features.length > 0 ||
-    specificationGroups.length > 0 ||
-    dimensionGroups.length > 0 ||
+    machine.specificationGroups.length > 0 ||
+    machine.dimensionGroups.length > 0 ||
     machine.hotspots.length > 0 ||
     machine.documentation.length > 0;
 
@@ -91,7 +65,7 @@ export function MachineTechnicalContent({
         </section>
       ) : null}
 
-      {specificationGroups.map((group) => (
+      {machine.specificationGroups.map((group) => (
         <MachineTechnicalTable
           group={group}
           headingId={`specification-${group.id}-heading`}
@@ -99,7 +73,7 @@ export function MachineTechnicalContent({
         />
       ))}
 
-      {dimensionGroups.map((group) => (
+      {machine.dimensionGroups.map((group) => (
         <div className="machine-dimension-group" key={group.id}>
           <MachineTechnicalTable
             group={group}
@@ -127,10 +101,7 @@ export function MachineTechnicalContent({
           <h2 id="hotspots-heading">Machine details</h2>
           <ul>
             {machine.hotspots.map((hotspot) => {
-              const technicalValues = (hotspot.technicalValues ?? []).filter(
-                (item) =>
-                  item.verificationStatus !== "rejected-or-superseded",
-              );
+              const technicalValues = hotspot.technicalValues ?? [];
 
               return (
                 <li key={hotspot.id}>

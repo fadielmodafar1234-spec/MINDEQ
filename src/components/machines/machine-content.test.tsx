@@ -65,12 +65,6 @@ const populatedDetailMachine: MachineDetailPageModel = {
           note: "Test note.",
           verificationStatus: "development-placeholder",
         },
-        {
-          id: "rejected-value",
-          label: "Rejected value",
-          value: "Must not render",
-          verificationStatus: "rejected-or-superseded",
-        },
       ],
     },
   ],
@@ -86,7 +80,12 @@ const populatedDetailMachine: MachineDetailPageModel = {
           verificationStatus: "development-placeholder",
         },
       ],
-      drawing: machine.heroImage,
+      drawing: {
+        ...machine.heroImage,
+        id: "test-dimension-drawing",
+        alt: "Test dimension drawing alternative text.",
+        caption: "Test dimension drawing caption.",
+      },
     },
   ],
   hotspots: [
@@ -105,7 +104,14 @@ const populatedDetailMachine: MachineDetailPageModel = {
       ],
     },
   ],
-  gallery: [machine.heroImage],
+  gallery: [
+    {
+      ...machine.heroImage,
+      id: "test-gallery-image",
+      alt: "Test gallery alternative text.",
+      caption: "Test gallery caption.",
+    },
+  ],
   documentation: [
     {
       id: "test-document",
@@ -235,79 +241,30 @@ describe("machine content components", () => {
     expect(markup).not.toContain("Documentation");
   });
 
-  it("preserves the current route input until route composition is wired", () => {
+  it("consumes presenter field names directly", () => {
     const markup = renderToStaticMarkup(
       <MachineTechnicalContent
         machine={{
-          applications: machine.applications,
-          features: machine.features,
-          specifications: machine.specifications,
-          dimensions: machine.dimensions,
-          hotspots: machine.hotspots,
-          documentation: machine.documentation,
+          applications: populatedDetailMachine.applications,
+          features: populatedDetailMachine.features,
+          specificationGroups: populatedDetailMachine.specificationGroups,
+          dimensionGroups: populatedDetailMachine.dimensionGroups,
+          hotspots: populatedDetailMachine.hotspots,
+          documentation: populatedDetailMachine.documentation,
         }}
       />,
     );
 
+    expect(markup).toContain("Test specifications");
     expect(markup).toContain("Machine details");
   });
 
-  it("omits empty and rejected-only technical groups", () => {
+  it("omits the technical content wrapper for an empty presenter model", () => {
     const markup = renderToStaticMarkup(
-      <MachineTechnicalContent
-        machine={{
-          applications: [],
-          features: [],
-          specifications: [
-            {
-              id: "empty-specifications",
-              label: "Empty specifications",
-              items: [],
-            },
-            {
-              id: "rejected-specifications",
-              label: "Rejected specifications",
-              items: [
-                {
-                  id: "rejected-specification-value",
-                  label: "Rejected specification value",
-                  value: "Must not render",
-                  verificationStatus: "rejected-or-superseded",
-                },
-              ],
-            },
-          ],
-          dimensions: [
-            {
-              id: "empty-dimensions",
-              label: "Empty dimensions",
-              items: [],
-            },
-            {
-              id: "rejected-dimensions",
-              label: "Rejected dimensions",
-              items: [
-                {
-                  id: "rejected-dimension-value",
-                  label: "Rejected dimension value",
-                  value: "Must not render",
-                  verificationStatus: "rejected-or-superseded",
-                },
-              ],
-            },
-          ],
-          hotspots: [],
-          documentation: [],
-        }}
-      />,
+      <MachineTechnicalContent machine={emptyDetailMachine} />,
     );
 
     expect(markup).toBe("");
-    expect(markup).not.toContain("Empty specifications");
-    expect(markup).not.toContain("Rejected specifications");
-    expect(markup).not.toContain("Empty dimensions");
-    expect(markup).not.toContain("Rejected dimensions");
-    expect(markup).not.toContain("Must not render");
   });
 
   it("uses unique heading ids and uniquely resolved labels", () => {
@@ -339,11 +296,27 @@ describe("machine content components", () => {
     expect(markup).toContain("Test value test-unit");
     expect(markup).toContain("Test note.");
     expect(markup).toContain("Machine details");
+    expect(markup).toContain(
+      'aria-labelledby="hotspot-test-hotspot-technical-values-heading"',
+    );
+    expect(markup).toContain('<th scope="row">Hotspot value</th>');
+    expect(markup).toContain("Hotspot test value");
+    expect(markup.match(/<figure>/g)).toHaveLength(2);
+    expect(markup).toContain("Test dimension drawing alternative text.");
+    expect(markup).toContain(
+      "<figcaption>Test dimension drawing caption.</figcaption>",
+    );
     expect(markup).toContain("Gallery");
+    expect(markup).toContain("Test gallery alternative text.");
+    expect(markup).toContain("<figcaption>Test gallery caption.</figcaption>");
     expect(markup).toContain("Documentation");
+    expect(markup).toContain(
+      '<a download="" href="/development-assets/test-document.txt">Test documentation</a>',
+    );
+    expect(markup).not.toContain("Revision ");
+    expect(markup).not.toContain("<time");
     expect(markup).toContain(
       "/contact?intent=quotation&amp;machine=development-machine",
     );
-    expect(markup).not.toContain("Rejected value");
   });
 });

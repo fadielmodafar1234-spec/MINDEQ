@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
@@ -9,6 +10,17 @@ function countHeadings(markup: string, level: number) {
 }
 
 describe("static routes", () => {
+  it("composes the dynamic machine route from reusable presenter contracts", () => {
+    const source = readFileSync("src/app/machines/[slug]/page.tsx", "utf8");
+
+    expect(source).toContain("MachineDetailPage");
+    expect(source).toContain("toMachineDetailPageModel");
+    expect(source).toContain("createMachineViewerConfig(machine)");
+    expect(source).not.toContain('"development-machine"');
+    expect(source).not.toMatch(/slug\s*===/);
+    expect(source).not.toMatch(/switch\s*\(\s*slug\s*\)/);
+  });
+
   it("presents approved expertise positioning with useful cross-links", () => {
     const markup = renderToStaticMarkup(<ExpertisePage />);
 
