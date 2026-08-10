@@ -151,7 +151,9 @@ function restoreMaterial(
     typeof material.wireframe === "boolean" &&
     typeof snapshot.wireframe === "boolean"
   ) {
+    const wireframeChanged = material.wireframe !== snapshot.wireframe;
     material.wireframe = snapshot.wireframe;
+    material.needsUpdate = material.needsUpdate || wireframeChanged;
   }
 }
 

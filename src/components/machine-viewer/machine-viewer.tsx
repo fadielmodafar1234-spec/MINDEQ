@@ -56,10 +56,11 @@ class ViewerErrorBoundary extends Component<
 function hasWebGLSupport(): boolean {
   try {
     const canvas = document.createElement("canvas");
+    const context = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
 
-    return Boolean(
-      canvas.getContext("webgl2") ?? canvas.getContext("webgl"),
-    );
+    context?.getExtension("WEBGL_lose_context")?.loseContext();
+
+    return Boolean(context);
   } catch {
     return false;
   }
@@ -129,11 +130,11 @@ function MachineViewerComponent({
           : "poster";
 
   useEffect(() => {
-    const frame = window.requestAnimationFrame(() => {
+    const timer = globalThis.setTimeout(() => {
       setAvailability(hasWebGLSupport() ? "supported" : "unsupported");
-    });
+    }, 0);
 
-    return () => window.cancelAnimationFrame(frame);
+    return () => globalThis.clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -280,7 +281,7 @@ function MachineViewerComponent({
           />
         ) : null}
 
-        {shouldMountCanvas ? (
+        {shouldMountCanvas && failedModelSrc !== modelSrc ? (
           <ViewerErrorBoundary key={modelSrc} onError={handleModelError}>
             <Suspense fallback={null}>
               <LazyMachineViewerCanvas
