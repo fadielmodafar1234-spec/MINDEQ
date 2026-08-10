@@ -26,6 +26,14 @@
     gap: var(--space-1);
   }
 
+  .machine-viewer__viewport {
+    min-height: 16rem;
+  }
+
+  .machine-viewer__instructions {
+    font-size: 0.8rem;
+  }
+
   .site-nav {
     display: none;
   }

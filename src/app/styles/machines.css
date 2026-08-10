@@ -63,6 +63,148 @@
   background: var(--color-surface);
 }
 
+.machine-viewer {
+  position: relative;
+  margin-block: var(--space-7);
+  background: var(--color-surface);
+}
+
+.machine-viewer:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: var(--space-4);
+  background: var(--color-ink);
+}
+
+.machine-viewer__instructions {
+  margin: 0;
+  border-block-end: 1px solid var(--color-line);
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-muted);
+  font-size: var(--type-label);
+}
+
+.machine-viewer__viewport {
+  position: relative;
+  width: 100%;
+  min-height: 20rem;
+  overflow: hidden;
+  background: var(--color-canvas);
+}
+
+.machine-viewer:fullscreen .machine-viewer__viewport {
+  height: calc(100vh - 11rem);
+  min-height: 0;
+}
+
+.machine-viewer__poster,
+.machine-viewer__canvas {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.machine-viewer__poster {
+  object-fit: cover;
+}
+
+.machine-viewer__canvas {
+  touch-action: pan-y pinch-zoom;
+}
+
+.machine-viewer__status {
+  position: absolute;
+  inset-inline-start: var(--space-4);
+  inset-block-end: var(--space-4);
+  max-width: calc(100% - (2 * var(--space-4)));
+  margin: 0;
+  border: 1px solid color-mix(in srgb, var(--color-line) 70%, transparent);
+  padding: var(--space-2) var(--space-3);
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  color: var(--color-ink);
+  font-size: var(--type-label);
+  pointer-events: none;
+}
+
+.machine-viewer[data-viewer-state="ready"] .machine-viewer__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.machine-viewer__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  border-block: 1px solid var(--color-line);
+  padding: var(--space-3) var(--space-4);
+}
+
+.machine-viewer__toolbar button,
+.machine-viewer__hotspot-list button,
+.machine-viewer__hotspot-marker {
+  min-height: var(--control-size);
+  border: 1px solid var(--color-line);
+  border-radius: 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  cursor: pointer;
+  font: inherit;
+}
+
+.machine-viewer__toolbar button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.machine-viewer__hotspot-marker {
+  min-width: var(--control-size);
+  padding: 0;
+  border-color: var(--color-action);
+  border-radius: 50%;
+  background: var(--color-action);
+  color: var(--color-surface);
+  font-weight: 800;
+}
+
+.machine-viewer__hotspot-list {
+  margin: 0;
+  padding: var(--space-4);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--space-3);
+  list-style: none;
+}
+
+.machine-viewer__hotspot-list button {
+  width: 100%;
+  height: 100%;
+  text-align: start;
+}
+
+.machine-viewer__hotspot-list button[aria-pressed="true"] {
+  border-color: var(--color-action);
+  box-shadow: inset var(--space-1) 0 0 var(--color-action);
+}
+
+.machine-viewer__hotspot-list strong,
+.machine-viewer__hotspot-list span {
+  display: block;
+}
+
+.machine-viewer__hotspot-list span {
+  margin-block-start: var(--space-1);
+  color: var(--color-muted);
+  font-size: var(--type-label);
+}
+
 .technical-content {
   margin-block-start: var(--space-7);
   display: grid;

@@ -64,7 +64,7 @@ describe("static design foundation", () => {
   });
 
   it("composes the locked stylesheets without malformed or duplicate rules", () => {
-    expect(entryCss).toBe(
+    expect(entryCss.replaceAll("\r\n", "\n")).toBe(
       [
         '@import "tailwindcss";',
         '@import "./styles/foundation.css";',
