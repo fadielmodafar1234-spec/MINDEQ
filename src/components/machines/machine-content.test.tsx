@@ -290,6 +290,24 @@ describe("machine content components", () => {
     );
 
     expect(markup).toContain("<h1>Development Machine</h1>");
+    for (const headingId of [
+      "overview-heading",
+      "applications-heading",
+      "features-heading",
+      "specification-test-specifications-heading",
+      "dimension-test-dimensions-heading",
+      "hotspots-heading",
+      "hotspot-test-hotspot-technical-values-heading",
+      "documentation-heading",
+      "gallery-heading",
+      "quotation-heading",
+    ]) {
+      expect(markup).toMatch(
+        new RegExp(
+          `<section aria-labelledby="${headingId}" class="[^"]*machine-detail-section[^"]*">`,
+        ),
+      );
+    }
     expect(markup).toContain('aria-labelledby="applications-heading"');
     expect(markup).toContain("<table>");
     expect(markup).toContain('<th scope="row">Test capacity</th>');
@@ -310,6 +328,7 @@ describe("machine content components", () => {
     expect(markup).toContain("Test gallery alternative text.");
     expect(markup).toContain("<figcaption>Test gallery caption.</figcaption>");
     expect(markup).toContain("Documentation");
+    expect(markup).toContain('<ul class="machine-document-list">');
     expect(markup).toContain(
       '<a download="" href="/development-assets/test-document.txt">Test documentation</a>',
     );

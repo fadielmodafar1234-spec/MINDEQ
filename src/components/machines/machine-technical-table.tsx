@@ -12,7 +12,7 @@ export function MachineTechnicalTable({
   headingLevel: Heading = "h2",
 }: MachineTechnicalTableProps) {
   return (
-    <section aria-labelledby={headingId}>
+    <section aria-labelledby={headingId} className="machine-detail-section">
       <Heading id={headingId}>{group.label}</Heading>
       <div
         aria-labelledby={headingId}

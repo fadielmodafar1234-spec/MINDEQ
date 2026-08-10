@@ -4,12 +4,26 @@ import { describe, expect, it } from "vitest";
 
 import ContactPage from "./contact/page";
 import ExpertisePage from "./expertise/page";
+import { GET as getFavicon } from "./favicon.ico/route";
 
 function countHeadings(markup: string, level: number) {
   return markup.match(new RegExp(`<h${level}(?:\\s|>)`, "g"))?.length ?? 0;
 }
 
 describe("static routes", () => {
+  it("serves a cacheable empty favicon response", async () => {
+    const response = getFavicon();
+
+    expect(response.status).toBe(204);
+    expect(await response.text()).toBe("");
+    expect(response.headers.get("Cache-Control")).toBe(
+      "public, max-age=86400",
+    );
+    expect(readFileSync("src/app/favicon.ico/route.ts", "utf8")).toContain(
+      'export const dynamic = "force-dynamic"',
+    );
+  });
+
   it("composes the dynamic machine route from reusable presenter contracts", () => {
     const source = readFileSync("src/app/machines/[slug]/page.tsx", "utf8");
 

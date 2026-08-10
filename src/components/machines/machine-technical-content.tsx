@@ -36,7 +36,10 @@ export function MachineTechnicalContent({
   return (
     <div className="technical-content">
       {machine.applications.length > 0 ? (
-        <section aria-labelledby="applications-heading">
+        <section
+          aria-labelledby="applications-heading"
+          className="machine-detail-section"
+        >
           <h2 id="applications-heading">Applications</h2>
           <ul>
             {machine.applications.map((application) => (
@@ -52,7 +55,10 @@ export function MachineTechnicalContent({
       ) : null}
 
       {machine.features.length > 0 ? (
-        <section aria-labelledby="features-heading">
+        <section
+          aria-labelledby="features-heading"
+          className="machine-detail-section"
+        >
           <h2 id="features-heading">Features</h2>
           <ul>
             {machine.features.map((feature) => (
@@ -97,7 +103,10 @@ export function MachineTechnicalContent({
       ))}
 
       {machine.hotspots.length > 0 ? (
-        <section aria-labelledby="hotspots-heading">
+        <section
+          aria-labelledby="hotspots-heading"
+          className="machine-detail-section"
+        >
           <h2 id="hotspots-heading">Machine details</h2>
           <ul>
             {machine.hotspots.map((hotspot) => {
@@ -126,9 +135,12 @@ export function MachineTechnicalContent({
       ) : null}
 
       {machine.documentation.length > 0 ? (
-        <section aria-labelledby="documentation-heading">
+        <section
+          aria-labelledby="documentation-heading"
+          className="machine-detail-section"
+        >
           <h2 id="documentation-heading">Documentation</h2>
-          <ul>
+          <ul className="machine-document-list">
             {machine.documentation.map((document) => (
               <li key={document.id}>
                 <a download href={document.file}>

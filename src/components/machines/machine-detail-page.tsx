@@ -50,7 +50,10 @@ export function MachineDetailPage({
         />
       )}
 
-      <section aria-labelledby="overview-heading" className="machine-overview">
+      <section
+        aria-labelledby="overview-heading"
+        className="machine-detail-section machine-overview"
+      >
         <h2 id="overview-heading">Overview</h2>
         <p>{machine.overview}</p>
       </section>
@@ -58,7 +61,10 @@ export function MachineDetailPage({
       <MachineTechnicalContent machine={machine} />
 
       {machine.gallery.length > 0 ? (
-        <section aria-labelledby="gallery-heading">
+        <section
+          aria-labelledby="gallery-heading"
+          className="machine-detail-section"
+        >
           <h2 id="gallery-heading">Gallery</h2>
           <div className="machine-gallery">
             {machine.gallery.map((image) => (
@@ -81,7 +87,7 @@ export function MachineDetailPage({
 
       <section
         aria-labelledby="quotation-heading"
-        className="machine-quotation"
+        className="machine-detail-section machine-quotation"
       >
         <h2 id="quotation-heading">Discuss this machine</h2>
         <p>Contact MINDEQ to discuss your production requirement.</p>
