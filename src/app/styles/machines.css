@@ -66,6 +66,7 @@
 .machine-viewer {
   position: relative;
   margin-block: var(--space-7);
+  border: 1px solid var(--color-line);
   background: var(--color-surface);
 }
 
@@ -82,15 +83,18 @@
   border-block-end: 1px solid var(--color-line);
   padding: var(--space-3) var(--space-4);
   color: var(--color-muted);
+  font-family: var(--font-label);
   font-size: var(--type-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }
 
 .machine-viewer__viewport {
   position: relative;
   width: 100%;
-  min-height: 20rem;
+  min-height: 22rem;
   overflow: hidden;
-  background: var(--color-canvas);
+  background: #0d1210;
 }
 
 .machine-viewer:fullscreen .machine-viewer__viewport {
@@ -122,9 +126,11 @@
   margin: 0;
   border: 1px solid color-mix(in srgb, var(--color-line) 70%, transparent);
   padding: var(--space-2) var(--space-3);
-  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
   color: var(--color-ink);
+  font-family: var(--font-label);
   font-size: var(--type-label);
+  letter-spacing: var(--tracking-label);
   pointer-events: none;
 }
 
@@ -147,31 +153,50 @@
 }
 
 .machine-viewer__toolbar button,
-.machine-viewer__hotspot-list button,
-.machine-viewer__hotspot-marker {
+.machine-viewer__hotspot-list button {
   min-height: var(--control-size);
   border: 1px solid var(--color-line);
   border-radius: 0;
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-4);
   background: var(--color-surface);
   color: var(--color-ink);
   cursor: pointer;
-  font: inherit;
+  font-family: var(--font-label);
+  font-size: var(--type-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.machine-viewer__hotspot-marker {
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+  padding: 0 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-surface);
+  border-radius: 50%;
+  background: var(--color-action);
+  color: var(--color-surface);
+  cursor: pointer;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.machine-viewer__hotspot-marker:hover,
+.machine-viewer__hotspot-marker:focus-visible {
+  background: var(--color-action-hover);
+  transform: scale(1.12);
 }
 
 .machine-viewer__toolbar button:disabled {
   cursor: not-allowed;
   opacity: 0.55;
-}
-
-.machine-viewer__hotspot-marker {
-  min-width: var(--control-size);
-  padding: 0;
-  border-color: var(--color-action);
-  border-radius: 50%;
-  background: var(--color-action);
-  color: var(--color-surface);
-  font-weight: 800;
 }
 
 .machine-viewer__hotspot-list {
@@ -189,14 +214,28 @@
   text-align: start;
 }
 
+.machine-viewer__hotspot-list button:hover {
+  border-color: var(--color-brand);
+  background: var(--color-canvas);
+}
+
 .machine-viewer__hotspot-list button[aria-pressed="true"] {
   border-color: var(--color-action);
+  background: var(--color-surface);
   box-shadow: inset var(--space-1) 0 0 var(--color-action);
 }
 
 .machine-viewer__hotspot-list strong,
 .machine-viewer__hotspot-list span {
   display: block;
+}
+
+.machine-viewer__hotspot-list strong {
+  font-family: var(--font-label);
+  font-size: var(--type-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }
 
 .machine-viewer__hotspot-list span {

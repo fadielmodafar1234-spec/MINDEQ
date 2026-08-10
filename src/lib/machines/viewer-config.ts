@@ -7,9 +7,9 @@ import type {
 import type { Machine } from "./types";
 
 const DEFAULT_CAMERA: ViewerCameraConfig = {
-  position: [4, 2.8, 5],
-  target: [0, 1, 0],
-  fov: 38,
+  position: [4.2, 3.2, 5.4],
+  target: [0, 0.95, 0],
+  fov: 36,
   near: 0.1,
   far: 100,
 };
@@ -17,26 +17,32 @@ const DEFAULT_CAMERA: ViewerCameraConfig = {
 export const DEFAULT_VIEWER_LIGHTING: ViewerLightingConfig = {
   ambient: {
     color: "#ffffff",
-    intensity: 0.75,
+    intensity: 0.55,
   },
   hemisphere: {
-    skyColor: "#dce7e9",
-    groundColor: "#464a46",
-    intensity: 1.1,
+    skyColor: "#eef5f7",
+    groundColor: "#2a322e",
+    intensity: 1.0,
   },
   directional: [
     {
       id: "viewer-key",
       color: "#ffffff",
-      intensity: 3.2,
-      position: [4, 6, 5],
+      intensity: 3.4,
+      position: [4.5, 7.5, 5.5],
       castShadow: true,
     },
     {
       id: "viewer-fill",
-      color: "#b9d3d8",
-      intensity: 1.4,
-      position: [-4, 3, -2],
+      color: "#9bb5c0",
+      intensity: 1.2,
+      position: [-4.5, 2.5, 3.0],
+    },
+    {
+      id: "viewer-rim",
+      color: "#e8f1f5",
+      intensity: 2.2,
+      position: [-3.5, 5.0, -4.0],
     },
   ],
 };

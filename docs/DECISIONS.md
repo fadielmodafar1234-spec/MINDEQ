@@ -166,3 +166,14 @@ Establishes a campaign-quality static presentation that communicates technical a
 
 STATUS:
 LOCKED
+
+---
+
+DECISION:
+Approve Task 08 MachineViewer 3D visual calibration: 36° narrow isometric FOV camera preset (`[4.2, 3.2, 5.4]`), 3-point industrial studio lighting rig (directional key `3.4`, rim `2.2`, warm fill `1.2`), dark slate viewport canvas `#0d1210`, high-contrast circular copper hotspot badges (`#b0481d`), copper component selection highlights, and responsive touch controls.
+
+WHY:
+Presents MINDEQ machinery with physical weight, engineered precision, and industrial configurator quality, avoiding game-like or sci-fi visual tropes while maintaining clear technical scanning and intentional mobile performance.
+
+STATUS:
+LOCKED
