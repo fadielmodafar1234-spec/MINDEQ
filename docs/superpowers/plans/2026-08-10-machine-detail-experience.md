@@ -34,7 +34,7 @@
 - Produces: `MachineDetailPageModel` and `toMachineDetailPageModel(machine: Machine): MachineDetailPageModel`.
 - The model contains identity, poster, overview, applications, features, filtered specification/dimension groups, hotspots, gallery, documentation, publication status, and `quotationHref`; it does not contain source references, model binaries, or editorial notes.
 
-- [ ] **Step 1: Write the failing presenter contract tests**
+- [x] **Step 1: Write the failing presenter contract tests**
 
 Create tests that use `getMachinePreviewBySlug("development-machine")` plus a local immutable test object where necessary:
 
@@ -55,7 +55,7 @@ expect(JSON.stringify(detail)).not.toContain("rejected-value");
 
 Also assert that groups left empty after filtering are removed, original list order is preserved, and missing revision/date fields remain absent.
 
-- [ ] **Step 2: Run the test and verify RED**
+- [x] **Step 2: Run the test and verify RED**
 
 Run:
 
@@ -65,7 +65,7 @@ pnpm test src/lib/machines/detail-page.test.ts
 
 Expected: FAIL because `detail-page.ts` does not exist.
 
-- [ ] **Step 3: Implement the presenter and exported types**
+- [x] **Step 3: Implement the presenter and exported types**
 
 Use explicit readonly view types and one filtering helper. Define the item
 alias from the validated machine type so specifications, dimensions, and
@@ -111,7 +111,7 @@ export function toMachineDetailPageModel(
 
 Do not spread the full `Machine`; build the result field by field.
 
-- [ ] **Step 4: Run focused tests and strict typecheck**
+- [x] **Step 4: Run focused tests and strict typecheck**
 
 Run:
 
@@ -122,7 +122,7 @@ pnpm typecheck
 
 Expected: presenter tests PASS and TypeScript exits 0.
 
-- [ ] **Step 5: Review and commit**
+- [x] **Step 5: Review and commit**
 
 Run `git diff --check`, confirm the presenter contains no `sourceReferences`, then commit:
 
@@ -146,7 +146,7 @@ git commit -m "feat: add machine detail page presenter"
 - Consumes: `MachineDetailPageModel` and `MachineViewerConfig | null`.
 - Produces: `MachineDetailPage({ machine, viewerConfig })`, `MachineTechnicalContent({ machine })`, and semantic `MachineTechnicalTable` groups.
 
-- [ ] **Step 1: Write failing static-render tests for the complete page**
+- [x] **Step 1: Write failing static-render tests for the complete page**
 
 Add a populated typed fixture and assert:
 
@@ -166,7 +166,7 @@ expect(markup).not.toContain('Rejected value');
 Retain and strengthen the existing empty-group test so empty applications,
 features, groups, hotspots, gallery, and documentation do not produce headings.
 
-- [ ] **Step 2: Run focused tests and verify RED**
+- [x] **Step 2: Run focused tests and verify RED**
 
 Run:
 
@@ -176,7 +176,7 @@ pnpm test src/components/machines/machine-content.test.tsx
 
 Expected: FAIL because the reusable page and table components do not exist.
 
-- [ ] **Step 3: Implement the semantic technical table**
+- [x] **Step 3: Implement the semantic technical table**
 
 Render one labelled scroll region per group:
 
@@ -205,7 +205,7 @@ Render one labelled scroll region per group:
 
 The heading is outside the table and has the exact `${group.id}-heading` id.
 
-- [ ] **Step 4: Refactor technical content into focused semantic regions**
+- [x] **Step 4: Refactor technical content into focused semantic regions**
 
 Render applications and features as lists, specification and dimension groups
 through `MachineTechnicalTable`, optional dimension drawings as `Image`, hotspot
@@ -219,7 +219,7 @@ Documentation metadata must use conditional fragments only:
 {document.date ? <time dateTime={document.date}>{document.date}</time> : null}
 ```
 
-- [ ] **Step 5: Implement the reusable page composition**
+- [x] **Step 5: Implement the reusable page composition**
 
 Move the route's current identity, viewer/poster, overview, gallery, and CTA
 markup into `MachineDetailPage`. Preserve `DevelopmentPlaceholderNotice` and
@@ -241,7 +241,7 @@ The CTA is:
 For a development record, render the existing warning directly before the
 viewer. Do not claim that a quotation service or response time exists.
 
-- [ ] **Step 6: Run focused tests, typecheck, and commit**
+- [x] **Step 6: Run focused tests, typecheck, and commit**
 
 Run:
 
@@ -276,7 +276,7 @@ git commit -m "feat: compose reusable machine detail sections"
 - Consumes: `toMachineDetailPageModel`, `createMachineViewerConfig`, and the existing environment-aware repository.
 - Produces: one generic route, a fully populated local proof record, and a guarded development documentation download.
 
-- [ ] **Step 1: Write failing route, data, and asset-isolation tests**
+- [x] **Step 1: Write failing route, data, and asset-isolation tests**
 
 Assert that the development record contains at least one application, feature,
 specification group, dimension group, hotspot technical value, gallery item, and
@@ -288,7 +288,7 @@ Add a static route source assertion that the dynamic page imports
 `MachineDetailPage` and `toMachineDetailPageModel`, and does not contain
 machine-specific slug branches.
 
-- [ ] **Step 2: Run focused tests and verify RED**
+- [x] **Step 2: Run focused tests and verify RED**
 
 Run:
 
@@ -299,7 +299,7 @@ pnpm test src/lib/machines/repository.test.ts src/app/static-routes.test.tsx
 Expected: FAIL because the fixture is not populated and route composition is
 not wired.
 
-- [ ] **Step 3: Expand the development fixture honestly**
+- [x] **Step 3: Expand the development fixture honestly**
 
 Use the exact development warning in all synthetic descriptions and values.
 Example technical item:
@@ -320,7 +320,7 @@ Add a development documentation record pointing to
 `/api/development-assets/development-machine.documentation.txt` with
 `publicationStatus: "development"`.
 
-- [ ] **Step 4: Extend the guarded development-asset route**
+- [x] **Step 4: Extend the guarded development-asset route**
 
 Generate a UTF-8 text file next to the synthetic GLB in
 `.mindeq-development-assets`. Replace the one-name route constant with an exact
@@ -342,7 +342,7 @@ Every response keeps `Cache-Control: no-store`, `X-Content-Type-Options:
 nosniff`, and `X-Robots-Tag: noindex, nofollow`. Do not join an unvalidated URL
 value into a filesystem path.
 
-- [ ] **Step 5: Simplify the route to reusable composition**
+- [x] **Step 5: Simplify the route to reusable composition**
 
 After lookup/not-found, derive both contracts and render:
 
@@ -360,7 +360,7 @@ return (
 
 Keep metadata and static param behavior unchanged.
 
-- [ ] **Step 6: Run focused and full tests, typecheck, and commit**
+- [x] **Step 6: Run focused and full tests, typecheck, and commit**
 
 Run:
 
@@ -394,7 +394,7 @@ git commit -m "feat: prove the reusable machine detail route"
 - Consumes: stable class hooks from Task 2.
 - Produces: readable document flow, contained table overflow, responsive gallery, usable downloads/CTA, and final Task 09 evidence.
 
-- [ ] **Step 1: Write failing structural CSS assertions**
+- [x] **Step 1: Write failing structural CSS assertions**
 
 Assert the composed CSS contains required selectors and behavior:
 
@@ -408,7 +408,7 @@ expect(css).toMatch(/\.machine-quotation/);
 
 Do not encode exact Task 10 visual values in the test.
 
-- [ ] **Step 2: Run the focused test and verify RED**
+- [x] **Step 2: Run the focused test and verify RED**
 
 Run:
 
@@ -418,7 +418,7 @@ pnpm test src/components/ui/static-foundation.test.tsx
 
 Expected: FAIL because the new structural selectors are absent.
 
-- [ ] **Step 3: Add minimum structural CSS**
+- [x] **Step 3: Add minimum structural CSS**
 
 Use existing tokens only. Add section flow, list/grid structure, full-width
 tables, row separation, labelled scroll containment, visible focus, gallery
@@ -428,7 +428,7 @@ page width and allow only `.machine-table-scroll` to scroll horizontally.
 Do not change Task 08 selectors for canvas background, camera-facing controls,
 hotspot colors, or viewer spacing.
 
-- [ ] **Step 4: Run all automated gates**
+- [x] **Step 4: Run all automated gates**
 
 Run:
 
@@ -443,7 +443,7 @@ git diff --check 032adcd..HEAD
 Expected: zero lint/type errors, all tests pass, and production build generates
 the existing required routes without a development machine page.
 
-- [ ] **Step 5: Validate the development page in a real browser**
+- [x] **Step 5: Validate the development page in a real browser**
 
 Run `pnpm dev`, then use Playwright CLI against
 `http://127.0.0.1:<port>/machines/development-machine`. At 1920x1080,
@@ -454,7 +454,7 @@ encoded quotation link. Inspect console and hydration output.
 
 Capture ignored screenshots under `output/playwright/task09-result-<viewport>.png`.
 
-- [ ] **Step 6: Validate production isolation**
+- [x] **Step 6: Validate production isolation**
 
 Serve the production build and verify:
 
@@ -464,7 +464,7 @@ Serve the production build and verify:
   warning, specification, document, or download URL;
 - the existing public routes have no horizontal overflow or console errors.
 
-- [ ] **Step 7: Review, check the plan, and commit**
+- [x] **Step 7: Review, check the plan, and commit**
 
 Review every path in `git diff --name-status 032adcd..HEAD`, scan for
 development-content production leaks and accidental Task 08 visual changes,

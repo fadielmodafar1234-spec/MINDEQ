@@ -81,4 +81,17 @@ describe("static design foundation", () => {
       "}\n  stroke: color-mix(in srgb, var(--color-canvas) 20%, transparent);",
     );
   });
+
+  it("defines the structural machine detail layout contract", () => {
+    expect(css).toMatch(/\.machine-detail-section\s*\{/);
+    expect(css).toMatch(
+      /\.machine-table-scroll\s*\{[^}]*overflow-x:\s*auto;/s,
+    );
+    expect(css).toMatch(/\.machine-table-scroll:focus-visible/);
+    expect(css).toMatch(/\.machine-document-list/);
+    expect(css).toMatch(/\.machine-quotation/);
+    expect(css).toMatch(
+      /\.machine-dimension-group > section,\s*\.technical-content li,\s*\.technical-content li > section\s*\{[^}]*min-width:\s*0;/s,
+    );
+  });
 });

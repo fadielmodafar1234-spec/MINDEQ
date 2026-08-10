@@ -26,6 +26,22 @@
     gap: var(--space-1);
   }
 
+  .machine-page,
+  .machine-page > *,
+  .technical-content,
+  .technical-content > *,
+  .machine-dimension-group {
+    min-width: 0;
+  }
+
+  .machine-gallery {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .machine-table-scroll {
+    width: 100%;
+  }
+
   .machine-viewer__viewport {
     min-height: 16rem;
   }

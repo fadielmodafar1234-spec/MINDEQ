@@ -250,6 +250,110 @@
   gap: var(--space-6);
 }
 
+.machine-detail-section {
+  min-width: 0;
+}
+
+.machine-overview,
+.machine-page > section {
+  margin-block-start: var(--space-7);
+}
+
+.technical-content > section,
+.machine-dimension-group {
+  min-width: 0;
+}
+
+.machine-dimension-group > section,
+.technical-content li,
+.technical-content li > section {
+  min-width: 0;
+}
+
+.technical-content ul {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+  list-style: none;
+}
+
+.technical-content li > * {
+  display: block;
+}
+
+.technical-content li > p {
+  margin-block-start: var(--space-2);
+}
+
+.machine-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+
+.machine-table-scroll:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: var(--space-1);
+}
+
+.machine-table-scroll table {
+  width: 100%;
+  min-width: var(--container-text);
+  border-collapse: collapse;
+}
+
+.machine-table-scroll tr {
+  border-block-end: 1px solid var(--color-line);
+}
+
+.machine-table-scroll th,
+.machine-table-scroll td {
+  padding: var(--space-3);
+  text-align: start;
+  vertical-align: top;
+}
+
+.machine-table-scroll th {
+  width: calc(100% / 3);
+}
+
+.machine-table-scroll small {
+  margin-block-start: var(--space-1);
+  display: block;
+}
+
+.machine-dimension-group {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.machine-dimension-group figure {
+  margin: 0;
+}
+
+.machine-dimension-group img {
+  width: 100%;
+  height: auto;
+}
+
+.machine-document-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.technical-content section[aria-labelledby="documentation-heading"] li {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.technical-content section[aria-labelledby="documentation-heading"] a {
+  min-height: var(--control-size);
+  display: inline-flex;
+  align-items: center;
+  overflow-wrap: anywhere;
+}
+
 .technical-value {
   border-bottom: 1px solid var(--color-line);
   padding-block: var(--space-3);
@@ -263,6 +367,7 @@
 }
 
 .machine-gallery {
+  margin-block-start: var(--space-5);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
   gap: var(--space-4);
@@ -270,4 +375,19 @@
 
 .machine-gallery figure {
   margin: 0;
+}
+
+.machine-gallery img {
+  width: 100%;
+  height: auto;
+}
+
+.machine-quotation {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-3);
+}
+
+.machine-quotation > * {
+  margin-block: 0;
 }
